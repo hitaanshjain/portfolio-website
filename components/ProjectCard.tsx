@@ -7,7 +7,7 @@ export function ProjectCard({ study }: { study: CaseStudy }) {
   return (
     <Link
       href={`/projects/${slug}`}
-      className="group block rounded-lg border border-ink/10 bg-white/40 p-6 transition-all duration-200 hover:-translate-y-1 hover:border-night/30 hover:shadow-[0_8px_30px_rgba(20,36,92,0.08)]"
+      className="group block rounded-lg border border-ink/10 bg-white/40 p-6 transition-all duration-200 hover:-translate-y-1 hover:border-night/30 hover:shadow-[0_8px_30px_rgba(20,36,92,0.08)] motion-reduce:transition-none motion-reduce:transform-none"
     >
       <div className="flex items-center gap-2">
         {pixel && <PixelSword />}
@@ -25,7 +25,7 @@ export function ProjectCard({ study }: { study: CaseStudy }) {
         ))}
       </ul>
       <p className="mt-4 font-mono text-xs text-night">
-        Read case study <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+        Read case study <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transition-none">→</span>
       </p>
     </Link>
   );

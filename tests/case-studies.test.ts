@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { getCaseStudySlugs, getCaseStudy, getAllCaseStudies } from "@/lib/case-studies";
+import { siteConfig, hero, experience, compactProjects, skills, about } from "@/lib/data";
 
 describe("case studies", () => {
   it("finds exactly the three case studies", () => {
@@ -25,8 +26,9 @@ describe("case studies", () => {
 
   it("never contains banned claims", () => {
     for (const cs of getAllCaseStudies()) {
-      const text = cs.content + JSON.stringify(cs.frontmatter);
-      for (const banned of ["2% hit", "66%", "80% hit", "sub-100ms", "TTFT"]) {
+      let text = cs.content + JSON.stringify(cs.frontmatter);
+      text += JSON.stringify({ siteConfig, hero, experience, compactProjects, skills, about });
+      for (const banned of ["2% hit", "66%", "80% hit", "sub-100ms", "TTFT", "SSE", "40%"]) {
         expect(text).not.toContain(banned);
       }
     }

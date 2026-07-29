@@ -8,7 +8,7 @@ export function Nav() {
       <Link href="/" className="flex items-center gap-3">
         <Image
           src="/images/avatar.jpg"
-          alt={siteConfig.name}
+          alt=""
           width={32}
           height={32}
           className="rounded-full"

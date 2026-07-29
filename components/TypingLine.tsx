@@ -19,9 +19,18 @@ export function TypingLine({ text }: { text: string }) {
   // which is worse than this reliable, if not flash-free, approach.)
   const [animate, setAnimate] = useState(false);
   useIsomorphicLayoutEffect(() => {
-    if (!sessionStorage.getItem("hj-typed")) {
-      sessionStorage.setItem("hj-typed", "1");
-      setAnimate(true);
+    // sessionStorage throws SecurityError in browsers/settings that block
+    // storage access (e.g. Safari private mode with stricter settings,
+    // some hardened/locked-down configurations). Since this runs in a
+    // layout effect, an uncaught throw here unmounts the whole tree —
+    // so any failure must degrade to static text (animate left false).
+    try {
+      if (!sessionStorage.getItem("hj-typed")) {
+        sessionStorage.setItem("hj-typed", "1");
+        setAnimate(true);
+      }
+    } catch {
+      /* storage blocked: leave animate false */
     }
   }, []);
   const { display, done } = useTypewriter(text, { enabled: animate });
@@ -37,9 +46,10 @@ export function TypingLine({ text }: { text: string }) {
       <span aria-hidden="true" className="invisible">
         {text}
       </span>
-      <span aria-label={text} className="absolute inset-0">
+      <span className="sr-only">{text}</span>
+      <span aria-hidden="true" className="absolute inset-0">
         {animate ? display : text}
-        {animate && !done && <span aria-hidden="true">▌</span>}
+        {animate && !done && <span>▌</span>}
       </span>
     </span>
   );

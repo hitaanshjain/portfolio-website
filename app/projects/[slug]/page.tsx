@@ -20,6 +20,11 @@ export async function generateMetadata({
   return {
     title: `${frontmatter.title} — Hitaansh Jain`,
     description: frontmatter.hook,
+    openGraph: {
+      title: `${frontmatter.title} — Hitaansh Jain`,
+      description: frontmatter.hook,
+      url: `/projects/${slug}`,
+    },
   };
 }
 

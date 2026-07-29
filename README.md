@@ -1,4 +1,4 @@
-# hitaanshjain.dev — portfolio
+# hitaanshjain.vercel.app — portfolio
 
 Personal portfolio: one-page home + MDX case studies.
 
@@ -6,12 +6,16 @@ Personal portfolio: one-page home + MDX case studies.
 
 ## Develop
 
+```bash
 npm install
 npm run dev
+```
 
 ## Quality gates
 
+```bash
 npm run lint && npm run typecheck && npm test && npm run build
+```
 
 ## Content
 
