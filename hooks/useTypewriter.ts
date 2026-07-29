@@ -1,6 +1,7 @@
 "use client";
 
-import { useLayoutEffect, useState } from "react";
+import { useState } from "react";
+import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 
 export function useTypewriter(
   text: string,
@@ -12,11 +13,11 @@ export function useTypewriter(
   // effect below decides whether to restart from zero and animate.
   const [count, setCount] = useState(text.length);
 
-  // useLayoutEffect (not useEffect): when `enabled` flips true, this must
+  // useIsomorphicLayoutEffect (not useEffect): when `enabled` flips true, this must
   // reset count to 0 in the same pre-paint pass as TypingLine's own
   // sessionStorage layout effect, so the browser never gets a chance to
   // paint an intermediate "still full text" frame between the two.
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (!enabled || reduced) {
       setCount(text.length);

@@ -1,12 +1,13 @@
 "use client";
 
-import { useLayoutEffect, useState } from "react";
+import { useState } from "react";
+import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { useTypewriter } from "@/hooks/useTypewriter";
 
 export function TypingLine({ text }: { text: string }) {
   // Server render + first paint show full text (no-JS fallback, no hydration
   // mismatch). After mount, animate only on the first visit this session.
-  // useLayoutEffect (not useEffect) here and in useTypewriter so the
+  // useIsomorphicLayoutEffect (not useEffect) here and in useTypewriter so the
   // sessionStorage check and the count-reset land in the same pre-paint
   // flush: the browser's first visible change after hydration is a single
   // cut straight from "full text" to "blank, typing", with no extra frame
@@ -17,7 +18,7 @@ export function TypingLine({ text }: { text: string }) {
   // page in ~1/5 runs and could paint visible text before the hide applied,
   // which is worse than this reliable, if not flash-free, approach.)
   const [animate, setAnimate] = useState(false);
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (!sessionStorage.getItem("hj-typed")) {
       sessionStorage.setItem("hj-typed", "1");
       setAnimate(true);
