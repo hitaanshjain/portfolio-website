@@ -9,8 +9,19 @@ const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-dm-sans", display
 const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "Hitaansh Jain",
+  metadataBase: new URL("https://hitaanshjain.vercel.app"),
+  title: {
+    default: "Hitaansh Jain — CS @ NYU",
+    template: "%s",
+  },
   description: "CS @ NYU. I build AI pipelines — and the systems that keep them honest.",
+  openGraph: {
+    title: "Hitaansh Jain — CS @ NYU",
+    description: "CS @ NYU. I build AI pipelines — and the systems that keep them honest.",
+    url: "/",
+    siteName: "Hitaansh Jain",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
