@@ -1,5 +1,7 @@
 import { Hero } from "@/components/Hero";
 import { ExperienceTimeline } from "@/components/ExperienceTimeline";
+import { FeaturedProjects } from "@/components/FeaturedProjects";
+import { CompactProjects } from "@/components/CompactProjects";
 import { Skills } from "@/components/Skills";
 
 export default function Home() {
@@ -7,6 +9,8 @@ export default function Home() {
     <main>
       <Hero />
       <ExperienceTimeline />
+      <FeaturedProjects />
+      <CompactProjects />
       <Skills />
     </main>
   );
