@@ -1,0 +1,23 @@
+# Skill/tooling assets — not part of the portfolio site
+.agents/
+.claude/
+.impeccable/
+.opencode/
+skills-lock.json
+
+# Dependencies & build output
+node_modules/
+.next/
+out/
+build/
+
+# Env & local
+.env*
+!.env.example
+.vercel/
+*.tsbuildinfo
+next-env.d.ts
+
+# OS
+.DS_Store
+Thumbs.db
