@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
 export function useTypewriter(
   text: string,
@@ -12,7 +12,11 @@ export function useTypewriter(
   // effect below decides whether to restart from zero and animate.
   const [count, setCount] = useState(text.length);
 
-  useEffect(() => {
+  // useLayoutEffect (not useEffect): when `enabled` flips true, this must
+  // reset count to 0 in the same pre-paint pass as TypingLine's own
+  // sessionStorage layout effect, so the browser never gets a chance to
+  // paint an intermediate "still full text" frame between the two.
+  useLayoutEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (!enabled || reduced) {
       setCount(text.length);
