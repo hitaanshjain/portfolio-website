@@ -8,7 +8,7 @@ export function Nav() {
       <Link href="/" className="flex items-center gap-3">
         <Image
           src="/images/avatar.jpg"
-          alt="Hitaansh Jain"
+          alt={siteConfig.name}
           width={32}
           height={32}
           className="rounded-full"
@@ -16,6 +16,9 @@ export function Nav() {
         <span className="font-display text-lg">{siteConfig.name}</span>
       </Link>
       <nav className="flex items-center gap-5 text-sm">
+        <Link href="/#experience" className="link-underline hidden md:inline">Experience</Link>
+        <Link href="/#projects" className="link-underline hidden md:inline">Projects</Link>
+        <Link href="/#about" className="link-underline hidden md:inline">About</Link>
         <a href={siteConfig.github} className="link-underline hidden sm:inline">GitHub</a>
         <a href={siteConfig.linkedin} className="link-underline hidden sm:inline">LinkedIn</a>
         <a
