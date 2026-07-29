@@ -3,6 +3,8 @@
 .claude/
 .impeccable/
 .opencode/
+.superpowers/
+docs/superpowers/
 skills-lock.json
 
 # Dependencies & build output
@@ -25,3 +27,4 @@ Thumbs.db
 # Source assets (copies live in public/)
 /Hitaansh_Jain_Resume.pdf
 /headshot.jpg
+.vercel
