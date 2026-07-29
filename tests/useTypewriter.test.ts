@@ -35,4 +35,16 @@ describe("useTypewriter", () => {
     expect(result.current.display).toBe("abcdefghij");
     expect(result.current.done).toBe(true);
   });
+
+  it("starts typing when enabled flips from false to true", () => {
+    const { result, rerender } = renderHook(
+      ({ enabled }) => useTypewriter("abcdefghij", { cps: 10, enabled }),
+      { initialProps: { enabled: false } }
+    );
+    expect(result.current.display).toBe("abcdefghij");
+    rerender({ enabled: true });
+    expect(result.current.display).toBe("");
+    act(() => vi.advanceTimersByTime(500));
+    expect(result.current.display).toBe("abcde");
+  });
 });

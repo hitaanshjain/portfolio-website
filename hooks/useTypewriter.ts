@@ -7,15 +7,18 @@ export function useTypewriter(
   opts: { cps?: number; enabled?: boolean } = {}
 ): { display: string; done: boolean } {
   const { cps = 40, enabled = true } = opts;
-  const reduced =
-    typeof window !== "undefined" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const animate = enabled && !reduced;
 
-  const [count, setCount] = useState(animate ? 0 : text.length);
+  // Server render and first client paint always show the full text; the
+  // effect below decides whether to restart from zero and animate.
+  const [count, setCount] = useState(text.length);
 
   useEffect(() => {
-    if (!animate) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!enabled || reduced) {
+      setCount(text.length);
+      return;
+    }
+    setCount(0);
     const interval = setInterval(() => {
       setCount((c) => {
         if (c >= text.length) {
@@ -26,7 +29,7 @@ export function useTypewriter(
       });
     }, 1000 / cps);
     return () => clearInterval(interval);
-  }, [animate, cps, text]);
+  }, [enabled, cps, text]);
 
   return { display: text.slice(0, count), done: count >= text.length };
 }
