@@ -12,7 +12,7 @@ export const hero = {
   typedLine: "CS @ NYU. I build AI pipelines — and the systems that keep them honest.",
   statusItems: [
     "SWE Intern @ Header",
-    "AI Intern @ MathGPT.ai",
+    "AI Intern @ MathGPT",
     "Open to Summer 2027 internships",
   ],
 };
@@ -40,9 +40,10 @@ export const experience: ExperienceEntry[] = [
     ],
   },
   {
-    company: "MathGPT.ai",
-    role: "AI Intern",
-    timeframe: "2026 – Present",
+    company: "MathGPT",
+    url: "https://mathgpt.ai",
+    role: "AI Intern (Part-Time)",
+    timeframe: "May 2026 – Present",
     bullets: [
       "Building a spec-driven pipeline that turns a textbook problem into a verified LaTeX case study and concept flashcard deck.",
       "Designed a generator/critic LLM architecture where the critic independently re-solves each problem before seeing any draft — and halts the pipeline on mismatch.",
@@ -97,7 +98,7 @@ export const skills = [
 
 export const about = {
   paragraphs: [
-    "I'm a CS major with a math minor at NYU ('27), spending this summer interning at Header and building an AI case-study pipeline at MathGPT.ai.",
+    "I'm a CS major with a math minor at NYU ('27), spending this summer interning at Header and building an AI case-study pipeline at MathGPT.",
     "The through-line in my work is AI systems you can actually trust: outputs verified by an independent second model, provenance that survives the pipeline, and tests that catch silent failures.",
     "I'm looking for Summer 2027 internships — if you're building something in that space, I'd love to talk.",
   ],
