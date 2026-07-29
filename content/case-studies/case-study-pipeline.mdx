@@ -1,0 +1,87 @@
+---
+title: "AI Case Study Pipeline"
+slug: "case-study-pipeline"
+timeframe: "2026 – Present"
+role: "AI Intern @ MathGPT.ai · 3-intern team"
+tags: ["Python", "LLM Orchestration", "MySQL", "LaTeX"]
+hook: "A two-phase LLM pipeline that won't show you an answer it can't verify — a second model re-derives every solution before any draft survives."
+order: 1
+links: []
+---
+
+## Context
+
+At MathGPT.ai I'm building a pipeline that turns a single textbook problem into a
+complete teaching artifact: a LaTeX case study grounded in real textbook material,
+plus a concept flashcard deck, compiled to PDF. I work on a three-intern team with
+weekly syncs with the project lead, and I own this pipeline end to end.
+
+The core design constraint: **an LLM's answer can't be trusted just because it
+looks right.** Everything downstream follows from that.
+
+## Architecture
+
+The pipeline runs in two spec-driven LLM phases.
+
+**Phase 1** takes one source problem and emits a five-file package: a primary
+textbook section extract, two supporting extracts, a JSON learning-objective
+mapping (with citations, a confidence rubric, and a gap list), and a fully worked,
+verified answer. It runs as two adversarial prompts: a **generator** that solves
+the problem, searches a local corpus index, and maps objectives — then a
+**critic** in a fresh session that re-solves the problem *before opening any
+draft* and halts the pipeline on mismatch.
+
+**Phase 2** consumes those files (three required, two optional) and emits the
+LaTeX case study plus the flashcard deck, compiled with Tectonic. A separate
+importer loads concept flashcards from slide decks into MySQL — a six-table
+relational schema (subject → textbook → chapter → objective → concept →
+flashcard) with a uniqueness constraint enforcing one card per type per concept.
+
+The stack is deliberately lean: Python 3.11 standard library only, PowerShell
+package validation, MySQL 8.4 in Docker Compose, and versioned prompt contracts.
+The LLM stages currently run against those contracts manually; an automated
+orchestrator is designed but not yet built. So far, **contracts — not code — are
+the product.**
+
+## The hard problem: trusting LLM math
+
+A single model grading its own work rubber-stamps its own mistakes. The fix was
+structural, not prompt-level: the critic runs in a fresh session and must
+independently re-derive the solution before it is allowed to see the generator's
+draft. Agreement is evidence of correctness; disagreement halts the pipeline.
+No human ever reviews a package that failed its own verification.
+
+Two more problems shaped the design:
+
+- **Faithful textbook extraction.** Standard PDF text extraction silently drops
+  inline math — the failure is invisible until a generated case study cites a
+  formula that isn't there. Extraction moved to page rendering plus visual
+  verification; every chapter in the corpus was spot-checked against rendered pages.
+- **Format archaeology.** The source flashcard decks store formulas as vector
+  images mislabeled as bitmaps, with no recoverable LaTeX. The importer reads the
+  underlying vector relationship directly and hash-verifies every blob round-trip,
+  so nothing is silently corrupted on the way into the database.
+
+## Decisions & trade-offs
+
+- **Specs before orchestration.** Writing ~2,100 lines of versioned prompt
+  contracts before automation code means every stage has a testable definition of
+  done — and the eventual orchestrator becomes a thin executor of contracts that
+  already work.
+- **Negative tests as first-class citizens.** The package validator ships with
+  fixtures that must *fail* — a validator that never rejects anything is
+  indistinguishable from no validator.
+- **Determinism checks.** The importer's test suite includes cross-process
+  determinism and committed-file drift checks, so a re-run can never quietly
+  produce different data.
+
+## Results
+
+Both phases pass full test rounds including negative controls. The corpus
+extraction system covers 45 textbook sections with a search index; the database
+holds 75 concept cards across 195 learning objectives; 27 automated tests are
+green. Scale so far: ~900 lines of Python, ~600 of SQL, ~2,100 of prompt
+contracts.
+
+*The repository is private client work, so there's no public link — but I'm
+happy to walk through the verification architecture in detail.*

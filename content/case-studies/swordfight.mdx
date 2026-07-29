@@ -1,0 +1,67 @@
+---
+title: "Swordfight"
+slug: "swordfight"
+timeframe: "Sept 2023 – May 2024"
+role: "Gameplay & Systems Programmer · 10-person team"
+tags: ["Unity", "C#", "HFSM AI", "PlasticSCM"]
+hook: "A polished top-down fighter shipped to Google Play and itch.io by a 10-person student team — 150k impressions, 4.5★ from 111 ratings."
+order: 3
+badge: "150k impressions · 4.5★"
+pixel: true
+links:
+  - label: "Play on itch.io"
+    href: "https://studio-19.itch.io/swordfight"
+---
+
+## Context
+
+Swordfight!! is a top-down fighting game with 14 playable characters, boss
+battles, per-character soundtracks, and leaderboards — built by a 10-person
+cross-functional student team in Unity and shipped to both the Google Play Store
+and itch.io, where it holds 4.5★ across 111 ratings with 150k impressions.
+
+I owned two systems: the weapon architecture and the enemy AI — plus the version
+control strategy that kept ten people from destroying each other's work.
+
+## Architecture
+
+**The weapon system** is interface-driven and polymorphic: abstract base classes
+define the combat contract (attack lifecycle, hitboxes, damage application), and
+each weapon implements only what makes it unique. Adding a new weapon meant
+writing one subclass — no copy-pasted combat logic, no regressions in existing
+weapons. This is what let the roster grow quickly late in development.
+
+**Enemy AI** runs on a Hierarchical Finite State Machine: top-level states
+(patrol, engage, recover) own nested sub-states, which is what makes multi-stage
+boss fights tractable — a boss phase change is a top-level transition, and each
+phase's attack patterns live in their own sub-machine instead of one giant
+switch statement.
+
+## The hard problem: ten people, one Unity project
+
+Unity scene files are effectively unmergeable — two people editing the same scene
+produces conflicts that can't be resolved line-by-line. With a 10-person team of
+artists, designers, and programmers all committing, this was the biggest threat
+to shipping.
+
+I managed branch strategy and version control via PlasticSCM: feature branches
+with defined merge protocols, scene ownership rules so no two people had the same
+scene open for edit, and coordinated integration windows for release builds. The
+process work was as load-bearing as any code — the final release builds went out
+on schedule.
+
+## Decisions & trade-offs
+
+- **Abstraction early, content late.** Building the weapon contract before the
+  full roster existed was a bet that paid off — content creation became cheap
+  exactly when the team needed to scale it.
+- **HFSM over behavior trees.** For deterministic, designer-tunable boss
+  patterns, nested state machines were simpler to reason about and debug than a
+  behavior-tree framework would have been.
+- **Process as a deliverable.** On a student team, version-control discipline
+  isn't overhead — it's the difference between shipping and not.
+
+## Results
+
+Shipped on Google Play and itch.io. 150k impressions, 4.5★ from 111 ratings,
+14 characters, and a community that still leaves comments calling it a hidden gem.
