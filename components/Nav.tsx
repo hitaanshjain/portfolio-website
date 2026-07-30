@@ -19,10 +19,26 @@ export function Nav() {
         <Link href="/#experience" className="link-underline hidden md:inline">Experience</Link>
         <Link href="/#projects" className="link-underline hidden md:inline">Projects</Link>
         <Link href="/#about" className="link-underline hidden md:inline">About</Link>
-        <a href={siteConfig.github} className="link-underline hidden sm:inline">GitHub</a>
-        <a href={siteConfig.linkedin} className="link-underline hidden sm:inline">LinkedIn</a>
+        <a
+          href={siteConfig.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="link-underline hidden sm:inline"
+        >
+          GitHub
+        </a>
+        <a
+          href={siteConfig.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="link-underline hidden sm:inline"
+        >
+          LinkedIn
+        </a>
         <a
           href={siteConfig.resumePath}
+          target="_blank"
+          rel="noopener noreferrer"
           className="rounded-md bg-night px-3 py-1.5 text-paper transition-colors hover:bg-night-deep"
         >
           Resume

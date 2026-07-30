@@ -15,7 +15,14 @@ export function ExperienceTimeline() {
             <div className="flex flex-wrap items-baseline justify-between gap-x-4">
               <h3 className="font-display text-2xl">
                 {job.url ? (
-                  <a href={job.url} className="link-underline">{job.company}</a>
+                  <a
+                    href={job.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="link-underline"
+                  >
+                    {job.company}
+                  </a>
                 ) : (
                   job.company
                 )}

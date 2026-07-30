@@ -21,8 +21,22 @@ export function Hero() {
         ))}
       </p>
       <div className="mt-8 flex flex-wrap gap-5 text-sm">
-        <a href={siteConfig.github} className="link-underline text-night">GitHub</a>
-        <a href={siteConfig.linkedin} className="link-underline text-night">LinkedIn</a>
+        <a
+          href={siteConfig.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="link-underline text-night"
+        >
+          GitHub
+        </a>
+        <a
+          href={siteConfig.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="link-underline text-night"
+        >
+          LinkedIn
+        </a>
         <a href={`mailto:${siteConfig.email}`} className="link-underline text-night">
           {siteConfig.email}
         </a>

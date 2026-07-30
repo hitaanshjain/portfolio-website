@@ -37,7 +37,13 @@ export function CaseStudyLayout({
       {links.length > 0 && (
         <p className="mt-4 flex gap-4">
           {links.map((l) => (
-            <a key={l.href} href={l.href} className="link-underline font-mono text-sm text-night">
+            <a
+              key={l.href}
+              href={l.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-underline font-mono text-sm text-night"
+            >
               {l.label} →
             </a>
           ))}

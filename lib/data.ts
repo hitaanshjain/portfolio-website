@@ -100,8 +100,8 @@ export const skills = [
 
 export const about = {
   paragraphs: [
-    "I'm a CS major with a math minor at NYU ('27), spending this summer interning at Header and building an AI case-study pipeline at MathGPT.",
-    "The through-line in my work is AI systems you can actually trust: outputs verified by an independent second model, provenance that survives the pipeline, and tests that catch silent failures.",
+    "I'm a CS major with a math minor at NYU ('27), spending this summer interning at [Header](https://joinheader.com) and building an AI case-study pipeline at [MathGPT](https://mathgpt.ai).",
+    "I have professional experience building an AI pipeline (currently in prod at [mathgpt.ai](https://mathgpt.ai)), and working in an Agile environment to develop a web application ([joinheader.com](https://joinheader.com)).",
     "I'm looking for new grad software engineering roles starting Summer 2027. If you're building something in that space, I'd love to talk.",
   ],
 };

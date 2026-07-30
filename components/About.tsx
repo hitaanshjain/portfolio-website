@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { about, siteConfig } from "@/lib/data";
+import { RichText } from "./RichText";
 
 export function About() {
   return (
@@ -8,7 +9,9 @@ export function About() {
       <div className="mt-8 grid items-start gap-10 md:grid-cols-[1fr_minmax(0,320px)]">
         <div className="space-y-4 text-[17px] leading-relaxed">
           {about.paragraphs.map((p) => (
-            <p key={p.slice(0, 40)}>{p}</p>
+            <p key={p.slice(0, 40)}>
+              <RichText text={p} />
+            </p>
           ))}
           <a
             href={`mailto:${siteConfig.email}`}

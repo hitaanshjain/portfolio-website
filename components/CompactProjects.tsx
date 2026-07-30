@@ -11,7 +11,14 @@ export function CompactProjects() {
               <h3 className="inline font-medium">{p.name}</h3>
               <p className="mt-1 text-sm text-ink-muted">{p.line}</p>
             </div>
-            <a href={p.github} className="link-underline font-mono text-xs text-night">GitHub →</a>
+            <a
+              href={p.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-underline font-mono text-xs text-night"
+            >
+              GitHub →
+            </a>
           </li>
         ))}
       </ul>
