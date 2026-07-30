@@ -5,7 +5,7 @@ export function FeaturedProjects() {
   const studies = getAllCaseStudies();
   return (
     <section id="projects" className="mx-auto max-w-5xl px-6 py-16">
-      <h2 className="font-mono text-sm uppercase tracking-widest text-ink-muted">Featured Projects</h2>
+      <h2 className="font-mono text-sm uppercase tracking-widest text-ink-muted">Selected Work</h2>
       <div className="mt-8 grid gap-6 md:grid-cols-3">
         {studies.map((s) => (
           <ProjectCard key={s.frontmatter.slug} study={s} />

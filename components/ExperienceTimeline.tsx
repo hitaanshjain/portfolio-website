@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { experience } from "@/lib/data";
 
 export function ExperienceTimeline() {
@@ -30,6 +31,17 @@ export function ExperienceTimeline() {
                 </li>
               ))}
             </ul>
+            {job.caseStudySlug && (
+              <Link
+                href={`/projects/${job.caseStudySlug}`}
+                className="group mt-4 inline-block font-mono text-xs text-night link-underline"
+              >
+                Read the case study{" "}
+                <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transition-none">
+                  →
+                </span>
+              </Link>
+            )}
             {job.detail && (
               <details className="mt-3 text-[15px] leading-relaxed">
                 <summary className="cursor-pointer font-mono text-xs text-night">more detail</summary>

@@ -25,6 +25,7 @@ export type ExperienceEntry = {
   bullets: string[];
   compact?: boolean;
   detail?: string;
+  caseStudySlug?: string;
 };
 
 export const experience: ExperienceEntry[] = [
@@ -44,6 +45,7 @@ export const experience: ExperienceEntry[] = [
     url: "https://mathgpt.ai",
     role: "AI Intern (Part-Time)",
     timeframe: "May 2026 – Present",
+    caseStudySlug: "case-study-pipeline",
     bullets: [
       "Building a spec-driven pipeline that turns a textbook problem into a verified LaTeX case study and concept flashcard deck.",
       "Designed a generator/critic LLM architecture where the critic independently re-solves each problem before seeing any draft, and halts the pipeline on mismatch.",

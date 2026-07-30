@@ -3,7 +3,7 @@ import type { CaseStudy } from "@/lib/case-studies";
 import { PixelSword } from "./PixelSword";
 
 export function ProjectCard({ study }: { study: CaseStudy }) {
-  const { slug, title, hook, tags, pixel, badge } = study.frontmatter;
+  const { slug, title, role, hook, tags, pixel, badge } = study.frontmatter;
   return (
     <Link
       href={`/projects/${slug}`}
@@ -13,6 +13,7 @@ export function ProjectCard({ study }: { study: CaseStudy }) {
         {pixel && <PixelSword />}
         <h3 className="font-display text-xl">{title}</h3>
       </div>
+      <p className="mt-1 font-mono text-[11px] text-ink-muted">{role}</p>
       {badge && (
         <p className="mt-2 inline-block border border-ink/20 bg-paper px-2 py-0.5 font-mono text-[11px] tracking-wide">
           {badge}
@@ -25,7 +26,7 @@ export function ProjectCard({ study }: { study: CaseStudy }) {
         ))}
       </ul>
       <p className="mt-4 font-mono text-xs text-night">
-        Read case study <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transition-none">→</span>
+        Read more <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transition-none">→</span>
       </p>
     </Link>
   );
