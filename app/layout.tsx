@@ -11,13 +11,13 @@ const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrai
 export const metadata: Metadata = {
   metadataBase: new URL("https://hitaanshjain.vercel.app"),
   title: {
-    default: "Hitaansh Jain — CS @ NYU",
+    default: "Hitaansh Jain · CS @ NYU",
     template: "%s",
   },
-  description: "CS @ NYU. I build AI pipelines — and the systems that keep them honest.",
+  description: "CS @ NYU. Full-stack and AI engineer. Case studies on verified LLM pipelines, air-gapped RAG, and a shipped Unity game.",
   openGraph: {
-    title: "Hitaansh Jain — CS @ NYU",
-    description: "CS @ NYU. I build AI pipelines — and the systems that keep them honest.",
+    title: "Hitaansh Jain · CS @ NYU",
+    description: "CS @ NYU. Full-stack and AI engineer. Case studies on verified LLM pipelines, air-gapped RAG, and a shipped Unity game.",
     url: "/",
     siteName: "Hitaansh Jain",
     type: "website",

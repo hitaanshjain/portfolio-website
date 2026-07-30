@@ -9,11 +9,11 @@ export const siteConfig = {
 
 export const hero = {
   prompt: "$ whoami",
-  typedLine: "CS @ NYU. I build AI pipelines — and the systems that keep them honest.",
+  typedLine: "CS @ NYU. Full-stack and AI engineer.",
   statusItems: [
     "SWE Intern @ Header",
     "AI Intern @ MathGPT",
-    "Open to Summer 2027 internships",
+    "Open to New Grad Software Engineering Roles starting Summer 2027",
   ],
 };
 
@@ -34,7 +34,7 @@ export const experience: ExperienceEntry[] = [
     role: "Software Engineer Intern",
     timeframe: "June 2026 – Present",
     bullets: [
-      "Shipped full-stack customization for AI-generated briefings — per-section reorder, toggles, and detail control — refactoring the generation pipeline from fixed sections to a dynamically assembled prompt backed by a JSONB section model.",
+      "Shipped full-stack customization for AI-generated briefings (per-section reorder, toggles, and detail control), refactoring the generation pipeline from fixed sections to a dynamically assembled prompt backed by a JSONB section model.",
       "Owned a release-gating recovery feature end to end: a paginated, Clerk-authenticated FastAPI endpoint, a frontend history screen, and metadata persistence designed to survive automated cleanup.",
       "Wrote 130+ automated tests on a test-per-feature workflow across a multi-provider LLM pipeline, FastAPI/PostgreSQL backend, and React Native/Expo frontend.",
     ],
@@ -46,8 +46,8 @@ export const experience: ExperienceEntry[] = [
     timeframe: "May 2026 – Present",
     bullets: [
       "Building a spec-driven pipeline that turns a textbook problem into a verified LaTeX case study and concept flashcard deck.",
-      "Designed a generator/critic LLM architecture where the critic independently re-solves each problem before seeing any draft — and halts the pipeline on mismatch.",
-      "Own the corpus extraction system, package validator, and MySQL flashcard database — 27 automated tests including negative controls.",
+      "Designed a generator/critic LLM architecture where the critic independently re-solves each problem before seeing any draft, and halts the pipeline on mismatch.",
+      "Own the corpus extraction system, package validator, and MySQL flashcard database, covered by 27 automated tests including negative controls.",
     ],
   },
   {
@@ -66,12 +66,12 @@ export const experience: ExperienceEntry[] = [
 export const compactProjects = [
   {
     name: "Stock Analyzer",
-    line: "3-tier stock analysis platform — Dockerized Flask + MongoDB, an 8-worker parallel pipeline, and an 80% coverage gate enforced in CI.",
+    line: "3-tier stock analysis platform: Dockerized Flask + MongoDB, an 8-worker parallel pipeline, and an 80% coverage gate enforced in CI.",
     github: "https://github.com/hitaanshjain/StockAnalyzer",
   },
   {
     name: "VocabLearn",
-    line: "JWT-authenticated vocabulary app with an AI reverse-dictionary — led backend on a 5-person Agile team.",
+    line: "JWT-authenticated vocabulary app with an AI reverse-dictionary. Led backend on a 5-person Agile team.",
     github: "https://github.com/hitaanshjain/VocabLearn",
   },
   {
@@ -100,6 +100,6 @@ export const about = {
   paragraphs: [
     "I'm a CS major with a math minor at NYU ('27), spending this summer interning at Header and building an AI case-study pipeline at MathGPT.",
     "The through-line in my work is AI systems you can actually trust: outputs verified by an independent second model, provenance that survives the pipeline, and tests that catch silent failures.",
-    "I'm looking for Summer 2027 internships — if you're building something in that space, I'd love to talk.",
+    "I'm looking for new grad software engineering roles starting Summer 2027. If you're building something in that space, I'd love to talk.",
   ],
 };

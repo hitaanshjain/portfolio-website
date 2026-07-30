@@ -18,10 +18,10 @@ export async function generateMetadata({
   const { slug } = await params;
   const { frontmatter } = getCaseStudy(slug);
   return {
-    title: `${frontmatter.title} — Hitaansh Jain`,
+    title: `${frontmatter.title} · Hitaansh Jain`,
     description: frontmatter.hook,
     openGraph: {
-      title: `${frontmatter.title} — Hitaansh Jain`,
+      title: `${frontmatter.title} · Hitaansh Jain`,
       description: frontmatter.hook,
       url: `/projects/${slug}`,
     },
