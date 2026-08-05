@@ -7,7 +7,7 @@ export function Nav() {
     <header className="mx-auto flex max-w-5xl items-center justify-between px-6 py-5">
       <Link href="/" className="flex items-center gap-3">
         <Image
-          src="/images/avatar.jpg"
+          src="/images/pfp.jpg"
           alt=""
           width={32}
           height={32}
