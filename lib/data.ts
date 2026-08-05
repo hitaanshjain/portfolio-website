@@ -9,11 +9,12 @@ export const siteConfig = {
 
 export const hero = {
   prompt: "$ whoami",
-  typedLine: "CS @ NYU. Full-stack and AI engineer.",
-  statusItems: [
-    "SWE Intern @ Header",
-    "AI Intern @ MathGPT",
-    "Open to New Grad Software Engineering Roles starting Summer 2027",
+  typedLine: "CS @ NYU '27. Full-stack and AI engineer.",
+  // Two rows: identity first, availability second. One row of five
+  // dot-separated items wraps into an unreadable block on narrow screens.
+  statusLines: [
+    ["SWE Intern @ Header", "AI Intern @ MathGPT", "3.93 GPA"],
+    ["Open to new grad SWE roles starting Summer 2027", "Seattle-based, open to relocation"],
   ],
 };
 
@@ -28,6 +29,13 @@ export type ExperienceEntry = {
   caseStudySlug?: string;
 };
 
+// STALENESS CHECK (last reviewed 2026-08-05). When either internship ends,
+// update all of the following together:
+//   1. the `timeframe` on that entry below ("… – Present" → an end month)
+//   2. the matching item in hero.statusLines[0] ("SWE Intern @ Header" etc.)
+//   3. present-tense bullets on that entry ("Building …" → "Built …")
+// Add the outcome at the same time ("shipped X before the internship ended").
+// Fall new-grad recruiting peaks Sept–Nov, so this needs to be right by then.
 export const experience: ExperienceEntry[] = [
   {
     company: "Header",
@@ -47,9 +55,9 @@ export const experience: ExperienceEntry[] = [
     timeframe: "May 2026 – Present",
     caseStudySlug: "case-study-pipeline",
     bullets: [
-      "Building a spec-driven pipeline that turns a textbook problem into a verified LaTeX case study and concept flashcard deck.",
-      "Designed a generator/critic LLM architecture where the critic independently re-solves each problem before seeing any draft, and halts the pipeline on mismatch.",
-      "Own the corpus extraction system, package validator, and MySQL flashcard database, covered by 27 automated tests including negative controls.",
+      "Building a five-stage TypeScript/Next.js pipeline that turns a calculus textbook problem into three verified study artifacts: a compiled LaTeX case study, concept flashcards, and an interactive step-by-step solution.",
+      "Designed a generator/critic LLM architecture where the critic re-solves each problem before the generator's drafts even exist, and halts the pipeline on mismatch.",
+      "Own the corpus extraction system, stage validation contracts, and MySQL flashcard cache, covered by 210 automated tests including negative controls.",
     ],
   },
   {
@@ -58,7 +66,7 @@ export const experience: ExperienceEntry[] = [
     timeframe: "Dec 2024 – May 2025",
     compact: true,
     bullets: [
-      "Backend CRUD and a full SQL → Microsoft Access migration (394-column schema, 700+ queries rewritten across 43 files) for an inventory system serving 1,500+ retail locations.",
+      "Backend CRUD and a full MySQL → Microsoft Access migration for an inventory system serving 1,500+ retail locations, moved to Access to meet the client's offline, zero-infrastructure deployment constraint (394-column schema, 700+ queries rewritten across 43 files).",
     ],
     detail:
       "Refactored a 73-function MySQL database layer into a metadata-driven Access architecture, implementing a configuration-driven schema provisioner that dynamically issued CREATE TABLE and ALTER TABLE operations across 7 .accdb files.",
@@ -85,22 +93,41 @@ export const compactProjects = [
 
 export const skills = [
   {
-    group: "Languages & Frameworks",
-    items: ["Python", "FastAPI", "Flask", "Java", "JavaScript", "Node.js", "Express", "React", "SQL", "MongoDB", "Pytest", "Mocha"],
+    group: "Languages",
+    items: ["Python", "TypeScript", "JavaScript", "Java", "SQL", "C#"],
+  },
+  {
+    group: "Backend & Data",
+    items: ["FastAPI", "Flask", "Node.js", "Express", "PostgreSQL", "MySQL", "MongoDB"],
+  },
+  {
+    group: "Frontend",
+    items: ["React", "Next.js", "React Native/Expo"],
   },
   {
     group: "AI & Data Engineering",
     items: ["LLMs (OpenAI API, Ollama)", "RAG", "LangChain", "ChromaDB", "Pandas", "NumPy"],
   },
   {
-    group: "DevOps & Workflow",
-    items: ["Claude Code", "Git", "GitHub Actions", "Render", "CI/CD", "Agile/Scrum"],
+    group: "Testing & DevOps",
+    items: [
+      "Pytest",
+      "Vitest",
+      "Mocha",
+      "Docker",
+      "Git",
+      "GitHub Actions",
+      "CI/CD",
+      "Render",
+      "Agile/Scrum",
+      "AI-assisted development (Claude Code)",
+    ],
   },
 ];
 
 export const about = {
   paragraphs: [
-    "I'm a CS major with a math minor at NYU ('27), spending this summer interning at [Header](https://joinheader.com) and building an AI case-study pipeline at [MathGPT](https://mathgpt.ai).",
+    "I'm a CS major with a math minor at NYU (3.93 GPA), graduating in Spring 2027. I'm spending this summer interning at [Header](https://joinheader.com) and building an AI case-study pipeline at [MathGPT](https://mathgpt.ai).",
     "I have professional experience building an AI pipeline (currently in prod at [mathgpt.ai](https://mathgpt.ai)), and working in an Agile environment to develop a web application ([joinheader.com](https://joinheader.com)).",
     "I'm looking for new grad software engineering roles starting Summer 2027. If you're building something in that space, I'd love to talk.",
   ],

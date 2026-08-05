@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Hitaansh Jain · CS @ NYU";
+export const alt = "Hitaansh Jain · CS @ NYU '27";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -24,7 +24,7 @@ export default function OgImage() {
         <div style={{ fontSize: 28, color: "#5A554E" }}>$ whoami</div>
         <div style={{ fontSize: 84, fontWeight: 700, marginTop: 12 }}>Hitaansh Jain</div>
         <div style={{ fontSize: 34, marginTop: 16, color: "#1E3480" }}>
-          CS @ NYU. Full-stack and AI engineer.
+          CS @ NYU &apos;27, 3.93 GPA. Full-stack and AI engineer.
         </div>
       </div>
     ),

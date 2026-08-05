@@ -8,16 +8,23 @@ const fraunces = Fraunces({ subsets: ["latin"], variable: "--font-fraunces", dis
 const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-dm-sans", display: "swap" });
 const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains", display: "swap" });
 
+// Single source for the tagline so <meta name="description">, og:description,
+// and the twitter:description Next derives from it can't drift apart. Keep it
+// in step with hero.typedLine in lib/data.ts and the OG image.
+const TITLE = "Hitaansh Jain · CS @ NYU '27";
+const DESCRIPTION =
+  "CS @ NYU '27, 3.93 GPA. Full-stack and AI engineer. Case studies on verified LLM pipelines, air-gapped RAG, and a shipped Unity game.";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://hitaanshjain.vercel.app"),
   title: {
-    default: "Hitaansh Jain · CS @ NYU",
+    default: TITLE,
     template: "%s",
   },
-  description: "CS @ NYU. Full-stack and AI engineer. Case studies on verified LLM pipelines, air-gapped RAG, and a shipped Unity game.",
+  description: DESCRIPTION,
   openGraph: {
-    title: "Hitaansh Jain · CS @ NYU",
-    description: "CS @ NYU. Full-stack and AI engineer. Case studies on verified LLM pipelines, air-gapped RAG, and a shipped Unity game.",
+    title: TITLE,
+    description: DESCRIPTION,
     url: "/",
     siteName: "Hitaansh Jain",
     type: "website",

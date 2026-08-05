@@ -11,15 +11,27 @@ export function Hero() {
       <p className="mt-5 max-w-2xl font-mono text-base text-ink md:text-lg">
         <TypingLine text={hero.typedLine} />
       </p>
-      <p className="mt-6 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-ink-muted">
-        <span className="status-dot inline-block h-2 w-2 rounded-full bg-status" aria-hidden="true" />
-        {hero.statusItems.map((item, i) => (
-          <span key={item}>
-            {item}
-            {i < hero.statusItems.length - 1 && <span className="mx-1 text-ink-muted/50">·</span>}
-          </span>
+      <div className="mt-6 space-y-1 text-sm text-ink-muted">
+        {hero.statusLines.map((line, lineIndex) => (
+          <p key={line[0]} className="flex flex-wrap items-center gap-x-2 gap-y-1">
+            {lineIndex === 0 ? (
+              <span
+                className="status-dot inline-block h-2 w-2 rounded-full bg-status"
+                aria-hidden="true"
+              />
+            ) : (
+              // Keeps row 2 aligned with row 1's text rather than its dot.
+              <span className="inline-block h-2 w-2" aria-hidden="true" />
+            )}
+            {line.map((item, i) => (
+              <span key={item}>
+                {item}
+                {i < line.length - 1 && <span className="mx-1 text-ink-muted/50">·</span>}
+              </span>
+            ))}
+          </p>
         ))}
-      </p>
+      </div>
       <div className="mt-8 flex flex-wrap gap-5 text-sm">
         <a
           href={siteConfig.github}
