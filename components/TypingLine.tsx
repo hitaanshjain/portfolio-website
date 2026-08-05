@@ -34,6 +34,17 @@ export function TypingLine({ text }: { text: string }) {
     }
   }, []);
   const { display, done } = useTypewriter(text, { enabled: animate });
+
+  // Only a running animation needs the three-layer structure below. Every
+  // other state renders the line exactly once: the server render, no-JS,
+  // reduced motion, every visit after the first this session, and the
+  // steady state once typing finishes. That keeps a single copy of the
+  // string in the delivered HTML, so crawlers and copy-paste get the line
+  // once rather than three times.
+  if (!animate || done) {
+    return <span className="block">{text}</span>;
+  }
+
   return (
     // Outer wrapper is sized by an invisible copy of the FULL text (normal
     // flow, always wraps to its final line count), while the visible/typed
@@ -41,15 +52,17 @@ export function TypingLine({ text }: { text: string }) {
     // size. Without this, the line reflows from 1 line to 2 as the
     // animation crosses the wrap point, shoving the rest of the page down
     // mid-animation (measured ~0.17 CLS), a real, visible "page jump" for
-    // every first-time visitor.
+    // every first-time visitor. The invisible copy is also what makes the
+    // collapse above shift-free: it reserves exactly the height the plain
+    // block span occupies once typing is done.
     <span className="relative block">
       <span aria-hidden="true" className="invisible">
         {text}
       </span>
       <span className="sr-only">{text}</span>
       <span aria-hidden="true" className="absolute inset-0">
-        {animate ? display : text}
-        {animate && !done && <span>▌</span>}
+        {display}
+        <span>▌</span>
       </span>
     </span>
   );
