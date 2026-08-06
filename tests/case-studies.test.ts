@@ -3,8 +3,13 @@ import { getCaseStudySlugs, getCaseStudy, getAllCaseStudies } from "@/lib/case-s
 import { siteConfig, hero, experience, compactProjects, skills, about } from "@/lib/data";
 
 describe("case studies", () => {
-  it("finds exactly the three case studies", () => {
-    expect(getCaseStudySlugs().sort()).toEqual(["case-study-pipeline", "rag-search", "swordfight"]);
+  it("finds exactly the four case studies", () => {
+    expect(getCaseStudySlugs().sort()).toEqual([
+      "case-study-pipeline",
+      "header",
+      "rag-search",
+      "swordfight",
+    ]);
   });
 
   it("every case study has required frontmatter and a substantial body", () => {
@@ -16,12 +21,29 @@ describe("case studies", () => {
     }
   });
 
-  it("orders case studies: pipeline, rag, swordfight", () => {
+  it("orders case studies: header, pipeline, rag, swordfight", () => {
     expect(getAllCaseStudies().map((c) => c.frontmatter.slug)).toEqual([
+      "header",
       "case-study-pipeline",
       "rag-search",
       "swordfight",
     ]);
+  });
+
+  it("never contains em-dashes or semicolons in rendered copy", () => {
+    let text = JSON.stringify({ siteConfig, hero, experience, compactProjects, skills, about });
+    for (const cs of getAllCaseStudies()) {
+      text += cs.content;
+      text += JSON.stringify([
+        cs.frontmatter.title,
+        cs.frontmatter.hook,
+        cs.frontmatter.role,
+        cs.frontmatter.badge ?? "",
+        cs.frontmatter.tags,
+      ]);
+    }
+    expect(text).not.toContain("—");
+    expect(text).not.toContain(";");
   });
 
   it("never contains banned claims", () => {
