@@ -6,7 +6,7 @@ role: "Software Engineer Intern"
 tags: ["Python", "FastAPI", "PostgreSQL", "React Native/Expo", "LLM Pipelines"]
 hook: "Production internship work at an AI briefing startup: full-stack briefing customization built on a dynamically assembled LLM prompt, a history feature designed around a cascade-delete constraint, and 400+ automated tests, all shipped to production through code review."
 order: 1
-badge: "8 merged PRs · 400+ tests"
+badge: "3 major features owned · 400+ tests"
 links: []
 ---
 
@@ -19,11 +19,11 @@ get one briefing that triages them. The stack is async Python with FastAPI and
 PostgreSQL on the backend, a React Native/Expo app on the frontend, and a
 three-stage LLM pipeline with six providers behind an adapter layer.
 
-I joined as a software engineer intern in June 2026. This is the closest thing
-on this site to plain production software engineering: features built, reviewed,
-and merged into a living codebase with 100+ API endpoints, dozens of
-migrations, and real users. Eight merged PRs so far, and the two biggest are
-below.
+I joined as a software engineer intern in June 2026. Of everything on this
+site, this is the closest to plain production software engineering: a codebase
+with 100+ API endpoints, dozens of migrations, real users, and code review on
+every change. Eight PRs merged in my first two months, and the two biggest
+are below.
 
 ## Briefing customization
 
@@ -32,12 +32,12 @@ control end to end: drag to reorder sections, toggle each one on or off, set
 per-section detail, a TLDR pinned to the top, and a computed read time on
 every briefing.
 
-The schema decision was one nullable JSONB column on the goals table, with no
-default and no backfill. NULL means "use the current default," resolved in code
-at read time, so improving the default later is a code change instead of a data
-migration across every existing row. The trade-off is that nothing in the
-database enforces valid section keys, which is why the API-layer validator is
-as strict as it is.
+The schema is one nullable JSONB column on the goals table, with no default
+and no backfill. NULL means "use the current default," and the default is
+resolved in code at read time, so improving it later is a code change instead
+of a data migration across every existing row. The cost is that nothing in the
+database enforces valid section keys. All of that strictness had to move up
+into the API-layer validator.
 
 The prompt refactor was the hard part. The old generation prompt hardcoded
 every section. I broke it into per-section instruction blocks that are
@@ -47,9 +47,9 @@ rather than as one global directive. An assembler filters to the enabled
 sections in the user's order and splices the result into the prompt template.
 The TLDR is deliberately not one of these blocks. It is a second LLM pass over
 the finished body, which is also why it cannot be reordered: it summarizes the
-thing it sits above. A normalizer pins it first even against a hand-crafted API
-payload, and the frontend's drag lock is a mirror of that rule, not the
-enforcement.
+thing it sits above. A normalizer pins it to the top even when a
+hand-crafted API payload says otherwise, and the drag lock in the UI just
+mirrors what the backend already enforces.
 
 Rollout went through a default-off feature flag, and I froze the old prompt
 as a literal file copy, so with the flag off the pipeline reproduced
@@ -66,14 +66,13 @@ briefing with its status and URL count.
 The interesting constraint was underneath. Each submission provisions an
 ephemeral goal, and a cleanup hook later soft-deletes the sources behind it.
 That hook leaves the goal row alone for one reason: the briefing's foreign key
-is ON DELETE CASCADE, so deleting the goal would take the briefing with it. The
-consequence for history is that you can join briefings to goals but not to
-sources, so the URL count the screen needs cannot be computed at read time. The
-fix was to denormalize it into the briefing's JSONB stats before generation
-starts, ahead of both the completed and the failed terminal paths. That
-surfaced a second bug: the completion path rebuilds stats from an explicit
-allowlist of keys, so the new key had to join that allowlist or it would be
-silently erased the moment a briefing finished.
+is ON DELETE CASCADE, so deleting the goal would take the briefing with it. So at read
+time a briefing can reach its goal but not its sources, and the URL count the
+screen needs is gone. The fix was to denormalize it into the briefing's JSONB
+stats before generation starts, ahead of both terminal paths, completed and
+failed. That surfaced a second bug: the completion path rebuilds stats from an
+explicit allowlist of keys, and any key off that list is silently erased the
+moment a briefing finishes. The new field had to join the allowlist too.
 
 Pagination is bounded limit/offset with a separate count query. Offset
 pagination drifts when rows are inserted mid-scroll, and for per-user history
@@ -88,12 +87,11 @@ the summary from that heading to the end of the string, which was only correct
 while the section was last. With my layout flag on, they amputated roughly 60%
 of the briefing body. I fixed both to cut to the next section heading instead,
 wrote 18 tests for the pair, then swept every other function that touched the
-summary for the same positional assumption. The sweep found none, which is the
-outcome you want but cannot assume.
+summary for the same positional assumption. The sweep found nothing else.
 
 ## Testing
 
-Roughly 8,600 merged lines, and 54% of them are tests. Around 420 test
+My merged diff is roughly 8,600 lines, and 54% of it is tests. Around 420 test
 functions across this work: 266 live in nine files I created on the main
 branch (257 pass, 9 skip), and the rest sit in files I extended and on
 branches still in review.
@@ -111,8 +109,9 @@ original one did.
 
 Everything above is live in production: the layout feature, the history
 feature, the TLDR and read-time work, and a run of smaller fixes including an
-SSRF egress guard on an ingestor fetch path. A third, larger workstream is
-still unmerged and unannounced, so it stays vague here.
+SSRF egress guard on an ingestor fetch path. Two more feature tracks are mine
+end to end, one of them larger than anything above, but both are unmerged and
+unannounced, so they stay vague here.
 
 *The repository is private client work, so there's no public link, but I'm
 happy to walk through any of this in as much detail as an interview allows.*
