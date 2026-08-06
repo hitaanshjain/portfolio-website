@@ -15,14 +15,14 @@ At MathGPT I'm building a pipeline that turns one calculus problem into three
 student-facing artifacts: a two-page LaTeX case-study worksheet (student sheet
 plus answer key) compiled to PDF, a set of concept flashcards, and an
 interactive step-by-step solution deck rendered in the browser. A student
-pastes their own problem or picks an OpenStax exercise, and a Next.js app runs
+picks a textbook question or pastes their own problem, and a Next.js app runs
 the pipeline server-side and presents all three results. I work on a
 three-intern team with weekly syncs with the project lead. I own the pipeline
 end to end, and the flashcard and case-study prompts were written together with
 the team.
 
-The core design constraint: **an LLM's answer can't be trusted just because it
-looks right.** Everything downstream follows from that.
+The core design constraint: **we need accurate math every time, but an LLM's
+answer can't always be trusted.** Everything downstream follows from that.
 
 ## Architecture
 
@@ -36,15 +36,16 @@ can't take down a good worksheet.
 
 Grounding comes from OpenStax Calculus Volume 1: 45 sections and 195 learning
 objectives, extracted by page rendering with visual verification because
-standard PDF text extraction silently drops inline math. A problem outside the
-corpus doesn't get an invented citation. Stage 1 emits no primary section and
-the downstream stages refuse to run. A six-table MySQL schema caches generated
-content keyed by textbook section, with a uniqueness constraint enforcing one
-card per type per concept at the database level.
+standard PDF text extraction silently drops inline math. When a problem falls
+outside the corpus, Stage 1 emits no primary section and the downstream stages
+refuse to run instead of inventing a citation. A six-table MySQL schema caches
+generated content keyed by textbook section. A uniqueness constraint on the
+cache table enforces one card per type per concept, so the rule holds even if
+application code forgets it.
 
 The runtime is TypeScript end to end: Next.js with React 19, the pipeline
-running server-side inside the app. Python appears only in two offline corpus
-build tools totaling 128 lines and never serves a request.
+running server-side inside the app. Python shows up in exactly two offline
+corpus build tools, 128 lines between them, and never serves a request.
 
 ## The critic
 
@@ -56,51 +57,44 @@ its own solution replayed as a prior turn. On a mismatch the run fails and
 ships nothing. An unreadable critic reply gets one retry and then fails the
 run, because treating an unknown verdict as a pass would let an uncertified
 answer through. The critic's edits come back as a patch restricted to an
-explicit field whitelist, so it cannot rewrite fields the generator owns.
-
-Why not a computer algebra system? One was planned and never built, and that is
-a fair criticism. The reasoning: arbitrary textbook problems (a
-limit-definition proof, related rates) don't reduce to clean CAS assertions
-without per-problem encoding that can itself be wrong. So the mathematical gate
-is an independent re-solve, and the gates around it are deterministic: zod
-contracts, a compiled expression parser, and a LaTeX compiler's exit code.
+explicit field whitelist, so it can't touch fields the generator owns.
 
 ## Three hard problems
 
 **Making independence structural.** The first design sent the critic one
 message containing both the problem and the drafts, with an instruction to
 solve before reading. That rule is impossible to obey when the drafts are
-already in context. The fix was architectural, not prompt engineering: fire the
-re-solve as its own call before the generator's output exists. A second failure
-appeared when the critic was asked to update a 15KB mapping document. It would
-either re-emit the whole thing or abbreviate it and silently drop fields that
-later stages depend on. Hence the whitelist patch.
+already in context, and no prompt wording fixes it. The fix was to fire the
+re-solve as its own call before the generator's output exists. A second
+failure appeared when the critic was asked to update a 15KB mapping document.
+It would either re-emit the whole thing or abbreviate it and silently drop
+fields that later stages depend on. Hence the whitelist patch.
 
 **No raw LaTeX ever reaches a student.** Model output flows to three render
-paths: MathJax-typeset prose, plain text, and labels baked into SVG where LaTeX
-can't render at all. The original detector missed 11 of 15 realistic samples.
-The shipped one strips correctly delimited math spans and then flags any
-backslash command or stray brace. That gate has since caught real model output
-in a live run, which is how you know it's load-bearing.
+paths: MathJax-typeset prose, plain text, and labels baked into SVG where
+LaTeX can't render at all. The original detector missed 11 of 15 realistic
+samples. The shipped one strips correctly delimited math spans and then flags
+any backslash command or stray brace. It has already caught real model output
+once in a live run.
 
 **Plots that can't silently lie.** Letting the model supply coordinates puts
 its arithmetic on the critical path with nothing to catch a bad point, and
 model-supplied SVG is unverifiable. Instead the model declares a plot as a
 closed-vocabulary ASCII expression like `8*x - x^2`. A hand-written tokenizer
 and precedence-climbing parser (247 lines, no eval, no dependencies) compiles
-it at validation time, an out-of-vocabulary expression fails the stage, and the
-renderer computes every plotted point itself.
+it at validation time, and an expression outside the vocabulary fails the
+stage. The renderer computes every plotted point itself.
 
 ## What it costs
 
-Every run writes a per-stage token log. Profiling one run showed roughly 74% of
-output tokens were model reasoning, estimated from kept-output bytes since the
-API doesn't report the split. Three changes followed: per-stage reasoning
+Every run writes a per-stage token log. Profiling one run showed roughly 74%
+of output tokens were model reasoning, estimated from kept-output bytes since
+the API doesn't report the split. Three changes followed: per-stage reasoning
 effort, the critic's patch format replacing full document re-emission, and a
 rolling prompt-cache breakpoint in the tool loop that ended quadratic context
 growth. Comparable runs went from $1.58 in 14.8 minutes to $0.97 in 7.5
-minutes, a 39% cost cut, measured run over run on different problems rather
-than in a controlled A/B.
+minutes, a 39% cost cut, though that compares consecutive runs on different
+problems, not a controlled A/B.
 
 ## Where it stands
 
