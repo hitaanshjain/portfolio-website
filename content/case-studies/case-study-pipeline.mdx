@@ -92,9 +92,9 @@ of output tokens were model reasoning, estimated from kept-output bytes since
 the API doesn't report the split. Three changes followed: per-stage reasoning
 effort, the critic's patch format replacing full document re-emission, and a
 rolling prompt-cache breakpoint in the tool loop that ended quadratic context
-growth. Comparable runs went from $1.58 in 14.8 minutes to $0.97 in 7.5
-minutes, a 39% cost cut, though that compares consecutive runs on different
-problems, not a controlled A/B.
+growth. Comparable runs got 39% cheaper and dropped from 14.8 minutes to 7.5,
+though that compares consecutive runs on different problems, not a controlled
+A/B.
 
 ## Where it stands
 
