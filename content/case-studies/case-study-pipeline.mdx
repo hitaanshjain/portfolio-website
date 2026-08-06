@@ -5,7 +5,7 @@ timeframe: "May 2026 – Present"
 role: "AI Intern @ MathGPT · 3-intern team"
 tags: ["TypeScript", "Next.js", "React", "MySQL", "LaTeX", "LLM Orchestration"]
 hook: "Turns a calculus textbook problem into three verified study artifacts for struggling college students: a case-study worksheet, concept flashcards, and an interactive step-by-step solution. An independent second pass re-derives every answer from scratch before any draft survives."
-order: 1
+order: 2
 links: []
 ---
 
@@ -59,7 +59,7 @@ run, because treating an unknown verdict as a pass would let an uncertified
 answer through. The critic's edits come back as a patch restricted to an
 explicit field whitelist, so it can't touch fields the generator owns.
 
-## Three hard problems
+## Four hard problems
 
 **Making independence structural.** The first design sent the critic one
 message containing both the problem and the drafts, with an instruction to
@@ -85,6 +85,18 @@ and precedence-climbing parser (247 lines, no eval, no dependencies) compiles
 it at validation time, and an expression outside the vocabulary fails the
 stage. The renderer computes every plotted point itself.
 
+**Case studies that are consistently good.** The recurring failure modes: a
+reskin of the source problem with new names, a story that is pure decoration,
+and a case too hard for the audience. The fix is a prompt that works like a
+spec. It forces concept-level transfer, generating the worksheet from the
+learning objective rather than the source problem's surface, and an anti-reskin
+check asks whether a student who saw both would call the new case a different
+application of the same idea. Difficulty is budgeted: three connected stages,
+at most five tasks, a 15 to 20 minute target, and no stage that is one-step
+substitution. A strip test catches decorative context, because a scenario that
+changes nothing when you remove it gets redesigned. And every worksheet
+compiles through the same fixed LaTeX template, so the format never drifts.
+
 ## What it costs
 
 Every run writes a per-stage token log. Profiling one run showed roughly 74%
@@ -102,9 +114,8 @@ A/B.
 two end-to-end suites that drive the full pipeline against mocked LLM replies
 and a real LaTeX compile. The negative controls are on disk and must fail:
 corrupted critic replies, invalid card and deck payloads, duplicate-key and
-phantom-foreign-key rejections. Nine live runs against the real API so far,
-seven completing every stage. It runs locally and is not deployed yet, and
-prompt variance across the wider corpus is still unmeasured.
+phantom-foreign-key rejections. It only runs locally but is going to be
+deployed to MathGPT.ai production soon.
 
 *The repository is private client work, so there's no public link, but I'm
 happy to walk through the verification architecture in detail.*

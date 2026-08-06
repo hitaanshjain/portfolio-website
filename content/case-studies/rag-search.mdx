@@ -5,7 +5,7 @@ timeframe: "July 2025 – Present"
 role: "Personal project"
 tags: ["FastAPI", "Ollama", "ChromaDB", "React"]
 hook: "Fully air-gapped document Q&A on a 1B model, with provenance stamped into every chunk and an honest audit of exactly where hybrid retrieval breaks."
-order: 2
+order: 3
 links:
   - label: "GitHub"
     href: "https://github.com/hitaanshjain/local-rag-search-engine"
@@ -14,9 +14,9 @@ links:
 ## Context
 
 A document Q&A system with one hard constraint: **nothing leaves the machine.**
-No cloud APIs, no third-party data exposure. Real municipal zoning ordinances,
-searched and summarized entirely on local hardware, right-sized to run a 1B-param
-model on CPU.
+No cloud APIs, no third-party data exposure. Somewhere that real municipal
+zoning ordinances can be searched and summarized entirely on local hardware,
+right-sized to run a 1B-param model on CPU.
 
 ## Architecture
 
@@ -38,15 +38,14 @@ Python.
 
 ## The hard problem: retrieval you can audit
 
-The interesting engineering here wasn't making retrieval work. It was measuring
-whether it *actually* works, and being honest about the answer.
+Most of the engineering went into measuring whether retrieval *actually* works,
+and being honest about the answer.
 
-I built a 50-query benchmark over the zoning corpus. Key finding: what it
-measures is **source-level attribution** (does the right *document* appear in
-top-k?), which is not the same as passage-level relevance. The keyword leg,
-benchmarked in isolation, hits 34% @k=3 and 50% @k=5. That number isn't
-impressive. It's *diagnostic*, and it pointed straight at three concrete design
-flaws:
+I built a 50-query benchmark over the zoning corpus, though it measures
+**source-level attribution** (does the right *document* appear in top-k?)
+rather than passage-level relevance, and those are different things. The
+keyword leg, benchmarked in isolation, hits 34% @k=3 and 50% @k=5. I keep that
+number on the page because it pointed straight at three design flaws:
 
 - **Tie collapse.** Substring-count keyword scoring gives hundreds of chunks an
   identical score for a common query, so ranking silently falls back to insertion
@@ -62,15 +61,15 @@ flaws:
 - **Provenance in-band, not in metadata.** Stamping source/page into the text
   itself is crude and costs tokens, but it's the one place citation info cannot
   be lost, no matter how retrieval or prompting changes.
-- **Right-sizing over horsepower.** A 1B model with CPU fallback keeps the
-  air-gap promise real on ordinary hardware, and the retrieval quality work
-  matters more than model size.
-- **Honest metrics over impressive ones.** Publishing the diagnostic baseline
-  and its failure modes beats quoting a number I can't reproduce.
+- **A 1B model on purpose.** Running small with CPU fallback keeps the air-gap
+  promise real on ordinary hardware, and the retrieval quality work matters
+  more than model size.
+- **Publish the ugly baseline.** I would rather show the diagnostic number and
+  its failure modes than quote one I can't reproduce.
 
 ## Results & next steps
 
-A working single-user prototype with verified provenance on every answer. Next,
-in order: BM25/IDF to fix tie collapse, passage-level ground truth so the
-benchmark measures relevance rather than attribution, and first-token latency
-measurement for the streaming path.
+It works as a single-user prototype, and every answer carries verified
+provenance. Next, in order: BM25/IDF to fix tie collapse, passage-level ground
+truth so the benchmark measures relevance rather than attribution, and
+first-token latency measurement for the streaming path.

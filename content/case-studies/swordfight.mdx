@@ -5,7 +5,7 @@ timeframe: "Sept 2023 – May 2024"
 role: "Gameplay & Systems Programmer · 10-person team"
 tags: ["Unity", "C#", "HFSM AI", "PlasticSCM"]
 hook: "A polished top-down fighter shipped to Google Play and itch.io by a 10-person student team, with 150k page views and 4.5★ from 111 ratings on itch.io."
-order: 3
+order: 4
 badge: "150k itch.io views · 4.5★"
 pixel: true
 links:
@@ -29,19 +29,19 @@ version control strategy that kept ten people from destroying each other's work.
 **The weapon system** is interface-driven and polymorphic: abstract base classes
 define the combat contract (attack lifecycle, hitboxes, damage application), and
 each weapon implements only what makes it unique. Adding a new weapon meant
-writing one subclass, with no copy-pasted combat logic and no regressions in
-existing weapons. This is what let the roster grow quickly late in development.
+writing one subclass instead of copy-pasting combat logic, so the roster could
+grow quickly late in development without breaking the weapons already in it.
 
 **Enemy AI** runs on a Hierarchical Finite State Machine: top-level states
-(patrol, engage, recover) own nested sub-states, which is what makes multi-stage
-boss fights tractable. A boss phase change is a top-level transition, and each
+(patrol, engage, recover) own nested sub-states, which keeps multi-stage boss
+fights tractable. A boss phase change is a top-level transition, and each
 phase's attack patterns live in their own sub-machine instead of one giant
 switch statement.
 
 ## The hard problem: ten people, one Unity project
 
-Unity scene files are effectively unmergeable. Two people editing the same scene
-produces conflicts that can't be resolved line-by-line. With a 10-person team of
+Unity scene files are effectively unmergeable. When two people edit the same
+scene, the conflict can't be resolved line by line. With a 10-person team of
 artists, designers, and programmers all committing, this was the biggest threat
 to shipping.
 
@@ -59,11 +59,11 @@ out on schedule.
 - **HFSM over behavior trees.** For deterministic, designer-tunable boss
   patterns, nested state machines were simpler to reason about and debug than a
   behavior-tree framework would have been.
-- **Process as a deliverable.** On a student team, version-control discipline
-  isn't overhead. It's the difference between shipping and not.
+- **Process as a deliverable.** On a student team, version control discipline
+  decided whether we shipped at all, so it got the same attention as the code.
 
 ## Results
 
-Shipped on Google Play and itch.io. 150k page views and 4.5★ from 111 ratings on
-itch.io, 14 characters, and a community that still leaves comments calling it a
-hidden gem.
+Shipped on Google Play and itch.io with 14 characters in the final roster. The
+itch.io page has drawn 150k views and holds 4.5★ across 111 ratings, and people
+still leave comments calling it a hidden gem.

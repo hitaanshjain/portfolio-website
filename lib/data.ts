@@ -14,7 +14,7 @@ export const hero = {
   // dot-separated items wraps into an unreadable block on narrow screens.
   statusLines: [
     ["SWE Intern @ Header", "AI Intern @ MathGPT", "3.93 GPA"],
-    ["Open to new grad SWE roles starting Summer 2027", "Seattle-based, open to relocation"],
+    ["Open to new grad SWE opportunities starting Summer 2027", "Seattle-based, open to relocation"],
   ],
 };
 
@@ -36,16 +36,20 @@ export type ExperienceEntry = {
 //   3. present-tense bullets on that entry ("Building …" → "Built …")
 // Add the outcome at the same time ("shipped X before the internship ended").
 // Fall new-grad recruiting peaks Sept–Nov, so this needs to be right by then.
+// Also: case-study-pipeline.mdx says the pipeline "is going to be deployed to
+// MathGPT.ai production soon" (written Aug 2026, expected within the month).
+// Swap to "deployed at MathGPT.ai" the day it ships.
 export const experience: ExperienceEntry[] = [
   {
     company: "Header",
     url: "https://joinheader.com",
     role: "Software Engineer Intern",
     timeframe: "June 2026 – Present",
+    caseStudySlug: "header",
     bullets: [
-      "Shipped full-stack customization for AI-generated briefings (per-section reorder, toggles, and detail control), refactoring the generation pipeline from fixed sections to a dynamically assembled prompt backed by a JSONB section model.",
-      "Owned a release-gating recovery feature end to end: a paginated, Clerk-authenticated FastAPI endpoint, a frontend history screen, and metadata persistence designed to survive automated cleanup.",
-      "Wrote 130+ automated tests on a test-per-feature workflow across a multi-provider LLM pipeline, FastAPI/PostgreSQL backend, and React Native/Expo frontend.",
+      "Shipped full-stack customization for AI-generated briefings (per-section reorder, toggles, and detail control) to production, refactoring generation from a hardcoded prompt to dynamically assembled sections backed by a JSONB section model.",
+      "Owned a briefing history feature end to end: a paginated authenticated FastAPI endpoint, a React Native history screen, and metadata denormalized ahead of an automated cleanup job that would otherwise erase it.",
+      "Wrote 400+ automated tests on a test-per-feature workflow across a multi-provider LLM pipeline, FastAPI/PostgreSQL backend, and React Native/Expo frontend.",
     ],
   },
   {
