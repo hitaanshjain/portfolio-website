@@ -128,7 +128,7 @@ export const skills = [
 export const about = {
   paragraphs: [
     "I'm a CS major with a math minor at NYU (3.93 GPA), graduating in Spring 2027. I'm spending this summer interning at [Header](https://joinheader.com) and building an AI case-study pipeline at [MathGPT](https://mathgpt.ai).",
-    "I have professional experience building an AI pipeline (currently in prod at [mathgpt.ai](https://mathgpt.ai)), and working in an Agile environment to develop a web application ([joinheader.com](https://joinheader.com)).",
+    "The projects I've enjoyed most had awkward constraints: an inventory system that had to run with no infrastructure at all, math help for struggling students where the AI isn't allowed to be wrong, and a ten-person game team sharing files that don't merge. Figuring out how to build quality software around such blockers and constraints is the part I like.",
     "I'm looking for new grad software engineering roles starting Summer 2027. If you're building something in that space, I'd love to talk.",
   ],
 };
