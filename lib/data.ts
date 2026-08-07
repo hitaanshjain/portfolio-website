@@ -48,8 +48,8 @@ export const experience: ExperienceEntry[] = [
     caseStudySlug: "header",
     bullets: [
       "Shipped full-stack customization for AI-generated briefings (per-section reorder, toggles, and detail control) to production, refactoring generation from a hardcoded prompt to dynamically assembled sections backed by a JSONB section model.",
-      "Owned a briefing history feature end to end: a paginated authenticated FastAPI endpoint, a React Native history screen, and metadata denormalized ahead of an automated cleanup job that would otherwise erase it.",
-      "Wrote 400+ automated tests on a test-per-feature workflow across a multi-provider LLM pipeline, FastAPI/PostgreSQL backend, and React Native/Expo frontend.",
+      "Owned Link Bankruptcy features end to end: a paginated authenticated history endpoint and React Native screen, metadata denormalized ahead of an automated cleanup job that would otherwise erase it, and a submit-time format picker with user-written sections that feed the generation prompt.",
+      "Wrote 400+ automated tests on a test-per-feature workflow across a multi-provider LLM pipeline, FastAPI/PostgreSQL backend, and React Native/Expo frontend, with every change merged through a senior engineer's code review.",
     ],
   },
   {
@@ -61,7 +61,7 @@ export const experience: ExperienceEntry[] = [
     bullets: [
       "Building a five-stage TypeScript/Next.js pipeline that turns a calculus textbook problem into three verified study artifacts: a compiled LaTeX case study, concept flashcards, and a step-by-step solution walkthrough.",
       "Designed a generator/critic LLM architecture where the critic re-solves each problem before the generator's drafts even exist, and halts the pipeline on mismatch.",
-      "Own the corpus extraction system, stage validation contracts, and MySQL flashcard cache, covered by 210 automated tests including negative controls.",
+      "Own the corpus extraction system, stage validation contracts, and MySQL flashcard cache, covered by 210 automated tests including negative controls, working on a three-intern Agile team with weekly project-lead syncs.",
     ],
   },
   {
