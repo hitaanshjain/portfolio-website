@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "Hitaansh Jain",
-  url: "https://hitaanshjain.vercel.app",
+  url: "https://hitaansh.dev",
   email: "hitaansh1912@gmail.com",
   github: "https://github.com/hitaanshjain",
   linkedin: "https://www.linkedin.com/in/hitaanshjain/",

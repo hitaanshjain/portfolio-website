@@ -16,7 +16,7 @@ const DESCRIPTION =
   "CS @ NYU '27, 3.93 GPA. Full-stack and AI engineer. Case studies on verified LLM pipelines, air-gapped RAG, and a shipped Unity game.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://hitaanshjain.vercel.app"),
+  metadataBase: new URL("https://hitaansh.dev"),
   title: {
     default: TITLE,
     template: "%s",
