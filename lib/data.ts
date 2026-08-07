@@ -135,8 +135,8 @@ export const skills: { group: string; items: SkillItem[] }[] = [
       { name: "RAG", usedAt: "RAG search platform" },
       { name: "LangChain", usedAt: "RAG search" },
       { name: "ChromaDB", usedAt: "RAG search" },
-      { name: "Pandas" },
-      { name: "NumPy" },
+      { name: "Pandas", usedAt: "NYU coursework" },
+      { name: "NumPy", usedAt: "NYU coursework" },
     ],
   },
   {
