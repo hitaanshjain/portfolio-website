@@ -38,8 +38,7 @@ Python.
 
 ## The hard problem: retrieval you can audit
 
-Most of the engineering went into measuring whether retrieval *actually* works,
-and being honest about the answer.
+Most of the engineering went into measuring whether retrieval *actually* works.
 
 I built a 50-query benchmark over the zoning corpus, though it measures
 **source-level attribution** (does the right *document* appear in top-k?)
@@ -54,7 +53,7 @@ number on the page because it pointed straight at three design flaws:
   source means top-3 can never return three passages from the same ordinance,
   the wrong trade for a corpus that is effectively one huge document.
 - **O(corpus) keyword scans.** The keyword leg pulls every chunk into Python on
-  each request. Fine at 3,796 chunks, a wall at 100k.
+  each request. That's fine at 3,796 chunks, but impossible to manage at 100k.
 
 ## Decisions & trade-offs
 
@@ -64,12 +63,10 @@ number on the page because it pointed straight at three design flaws:
 - **A 1B model on purpose.** Running small with CPU fallback keeps the air-gap
   promise real on ordinary hardware, and the retrieval quality work matters
   more than model size.
-- **Publish the ugly baseline.** I would rather show the diagnostic number and
-  its failure modes than quote one I can't reproduce.
 
 ## Results & next steps
 
 It works as a single-user prototype, and every answer carries verified
-provenance. Next, in order: BM25/IDF to fix tie collapse, passage-level ground
-truth so the benchmark measures relevance rather than attribution, and
-first-token latency measurement for the streaming path.
+provenance. Future updates include implementing BM25/IDF to fix tie collapse,
+passage-level ground truth so the benchmark measures relevance rather than
+attribution, and first-token latency measurement for the streaming path.

@@ -4,7 +4,7 @@ slug: "case-study-pipeline"
 timeframe: "May 2026 – Present"
 role: "AI Intern @ MathGPT · 3-intern team"
 tags: ["TypeScript", "Next.js", "React", "MySQL", "LaTeX", "LLM Orchestration"]
-hook: "Turns a calculus textbook problem into three verified study artifacts for struggling college students: a case-study worksheet, concept flashcards, and an interactive step-by-step solution. An independent second pass re-derives every answer from scratch before any draft survives."
+hook: "Turns a calculus textbook problem into three verified study artifacts for struggling college students: a case-study worksheet, concept flashcards, and a step-by-step solution walkthrough. An independent second pass re-derives every answer from scratch before any draft survives."
 order: 2
 links:
   - label: "mathgpt.ai"
@@ -15,8 +15,8 @@ links:
 
 At MathGPT I'm building a pipeline that turns one calculus problem into three
 student-facing artifacts: a two-page LaTeX case-study worksheet (student sheet
-plus answer key) compiled to PDF, a set of concept flashcards, and an
-interactive step-by-step solution deck rendered in the browser. A student
+plus answer key) compiled to PDF, a set of concept flashcards, and a
+step-by-step solution walkthrough the browser renders one step at a time. A student
 picks a textbook question or pastes their own problem, and a Next.js app runs
 the pipeline server-side and presents all three results. I work on a
 three-intern team with weekly syncs with the project lead. I own the pipeline
@@ -43,7 +43,11 @@ outside the corpus, Stage 1 emits no primary section and the downstream stages
 refuse to run instead of inventing a citation. A six-table MySQL schema caches
 generated content keyed by textbook section. A uniqueness constraint on the
 cache table enforces one card per type per concept, so the rule holds even if
-application code forgets it.
+application code forgets it. The walkthrough is cached the same way: the first
+run in a section generates it, and later runs replay the stored JSON. When a
+client-supplied template bank holds a problem for the section, the run
+animates that problem and its pre-verified answers instead of inventing its
+own.
 
 The runtime is TypeScript end to end: Next.js with React 19, the pipeline
 running server-side inside the app. Python shows up in exactly two offline

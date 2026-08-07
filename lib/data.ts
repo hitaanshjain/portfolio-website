@@ -59,7 +59,7 @@ export const experience: ExperienceEntry[] = [
     timeframe: "May 2026 – Present",
     caseStudySlug: "case-study-pipeline",
     bullets: [
-      "Building a five-stage TypeScript/Next.js pipeline that turns a calculus textbook problem into three verified study artifacts: a compiled LaTeX case study, concept flashcards, and an interactive step-by-step solution.",
+      "Building a five-stage TypeScript/Next.js pipeline that turns a calculus textbook problem into three verified study artifacts: a compiled LaTeX case study, concept flashcards, and a step-by-step solution walkthrough.",
       "Designed a generator/critic LLM architecture where the critic re-solves each problem before the generator's drafts even exist, and halts the pipeline on mismatch.",
       "Own the corpus extraction system, stage validation contracts, and MySQL flashcard cache, covered by 210 automated tests including negative controls.",
     ],
