@@ -7,7 +7,7 @@ export function ProjectCard({ study }: { study: CaseStudy }) {
   return (
     <Link
       href={`/projects/${slug}`}
-      className="group block rounded-lg border border-ink/10 bg-white/40 p-6 transition-all duration-200 hover:-translate-y-1 hover:border-night/30 hover:shadow-[0_8px_30px_rgba(20,36,92,0.08)] motion-reduce:transition-none motion-reduce:transform-none"
+      className="group flex h-full flex-col rounded-lg border border-ink/10 bg-white/40 p-6 transition-all duration-200 hover:-translate-y-1 hover:border-night/30 hover:shadow-[0_8px_30px_rgba(20,36,92,0.08)] motion-reduce:transition-none motion-reduce:transform-none"
     >
       <div className="flex items-center gap-2">
         {pixel && <PixelSword />}
@@ -20,9 +20,14 @@ export function ProjectCard({ study }: { study: CaseStudy }) {
         </p>
       )}
       <p className="mt-3 text-[15px] leading-relaxed text-ink-muted">{hook}</p>
-      <ul className="mt-4 flex flex-wrap gap-2">
+      <ul className="mt-auto flex flex-wrap gap-2 pt-4">
         {tags.map((t) => (
-          <li key={t} className="font-mono text-xs text-ink-muted">{t}</li>
+          <li
+            key={t}
+            className="rounded-md border border-ink/15 bg-paper px-2 py-0.5 font-mono text-[11px] text-ink-muted"
+          >
+            {t}
+          </li>
         ))}
       </ul>
       <p className="mt-4 font-mono text-xs text-night">
