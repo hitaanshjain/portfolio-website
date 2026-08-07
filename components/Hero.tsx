@@ -4,8 +4,7 @@ import { TypingLine } from "./TypingLine";
 export function Hero() {
   return (
     <section className="mx-auto max-w-5xl px-6 pb-20 pt-16 md:pt-28">
-      <p className="font-mono text-sm text-ink-muted">{hero.prompt}</p>
-      <h1 className="mt-3 font-display text-5xl tracking-tight md:text-7xl">
+      <h1 className="font-display text-5xl tracking-tight md:text-7xl">
         {siteConfig.name}
       </h1>
       <p className="mt-5 max-w-2xl font-mono text-base text-ink md:text-lg">

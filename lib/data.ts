@@ -8,7 +8,6 @@ export const siteConfig = {
 };
 
 export const hero = {
-  prompt: "$ whoami",
   typedLine: "CS @ NYU '27. Full-stack and AI engineer.",
   // Two rows: identity first, availability second. One row of five
   // dot-separated items wraps into an unreadable block on narrow screens.
