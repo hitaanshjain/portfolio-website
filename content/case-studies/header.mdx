@@ -7,7 +7,9 @@ tags: ["Python", "FastAPI", "PostgreSQL", "React Native/Expo", "LLM Pipelines"]
 hook: "Production internship work at an AI briefing startup: full-stack briefing customization built on a dynamically assembled LLM prompt, a history feature designed around a cascade-delete constraint, and 400+ automated tests, all shipped to production through code review."
 order: 1
 badge: "3 major features owned · 400+ tests"
-links: []
+links:
+  - label: "joinheader.com"
+    href: "https://joinheader.com"
 ---
 
 ## Context
@@ -55,15 +57,16 @@ as a literal file copy, so with the flag off the pipeline reproduced
 pre-feature behavior exactly. That made the merge itself a no-op. The flag has
 since been flipped on, and the feature is live in production.
 
-The newest piece is format control for Link Bankruptcy submissions, also live
-in production. At submit time a user now picks between a quick link triage, a
-full briefing, or a custom format built on the same section machinery,
-including up to five sections they write themselves, each a title plus
-plain-English instructions that feed straight into the assembled prompt. Its
-flag handling has one refinement over the layout rollout: with the feature
-flag off, the submit endpoint ignores format fields rather than rejecting
-them, so a mid-flight flip never turns a submission that was valid a second
-earlier into an error.
+The newest piece is format control for Link Bankruptcy submissions. A
+submitter picks one of three formats: a quick link triage, a full briefing, or
+a custom format built on the same section machinery. Custom means up to five
+sections the user writes themselves, each a title plus plain-English
+instructions that feed straight into the assembled prompt, and the
+instructions carry the length intent instead of a preset detail knob.
+Validation is strict in both directions: custom sections are required when the
+format asks for them and rejected when it doesn't, with hard caps on count and
+length so a submission can never smuggle an unbounded prompt into the
+pipeline.
 
 ## A history feature shaped by a cascade
 
