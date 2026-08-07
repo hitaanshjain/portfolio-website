@@ -94,36 +94,64 @@ export const compactProjects = [
   },
 ];
 
-export const skills = [
+export type SkillItem = { name: string; usedAt?: string };
+
+export const skills: { group: string; items: SkillItem[] }[] = [
   {
     group: "Languages",
-    items: ["Python", "TypeScript", "JavaScript", "Java", "SQL", "C#"],
+    items: [
+      { name: "Python", usedAt: "Header · RAG search · Stock Analyzer" },
+      { name: "TypeScript", usedAt: "Header · MathGPT" },
+      { name: "JavaScript", usedAt: "VocabLearn · ExpenseSplitter" },
+      { name: "Java", usedAt: "NYU coursework" },
+      { name: "SQL", usedAt: "Header · MathGPT · Vardhman" },
+      { name: "C#", usedAt: "Swordfight" },
+    ],
   },
   {
     group: "Backend & Data",
-    items: ["FastAPI", "Flask", "Node.js", "Express", "PostgreSQL", "MySQL", "MongoDB"],
+    items: [
+      { name: "FastAPI", usedAt: "Header · RAG search" },
+      { name: "Flask", usedAt: "Stock Analyzer" },
+      { name: "Node.js", usedAt: "VocabLearn · ExpenseSplitter" },
+      { name: "Express", usedAt: "VocabLearn · ExpenseSplitter" },
+      { name: "PostgreSQL", usedAt: "Header" },
+      { name: "MySQL", usedAt: "MathGPT · Vardhman" },
+      { name: "MongoDB", usedAt: "Stock Analyzer" },
+    ],
   },
   {
     group: "Frontend",
-    items: ["React", "Next.js", "React Native/Expo"],
+    items: [
+      { name: "React", usedAt: "MathGPT · RAG search" },
+      { name: "Next.js", usedAt: "MathGPT" },
+      { name: "React Native/Expo", usedAt: "Header" },
+    ],
   },
   {
     group: "AI & Data Engineering",
-    items: ["LLMs (OpenAI API, Ollama)", "RAG", "LangChain", "ChromaDB", "Pandas", "NumPy"],
+    items: [
+      { name: "LLMs (OpenAI API, Ollama)", usedAt: "Header · MathGPT · RAG search" },
+      { name: "RAG", usedAt: "RAG search platform" },
+      { name: "LangChain" },
+      { name: "ChromaDB", usedAt: "RAG search" },
+      { name: "Pandas" },
+      { name: "NumPy" },
+    ],
   },
   {
     group: "Testing & DevOps",
     items: [
-      "Pytest",
-      "Vitest",
-      "Mocha",
-      "Docker",
-      "Git",
-      "GitHub Actions",
-      "CI/CD",
-      "Render",
-      "Agile/Scrum",
-      "AI-assisted development (Claude Code)",
+      { name: "Pytest", usedAt: "Header" },
+      { name: "Vitest" },
+      { name: "Mocha" },
+      { name: "Docker", usedAt: "Stock Analyzer" },
+      { name: "Git", usedAt: "every project" },
+      { name: "GitHub Actions", usedAt: "Stock Analyzer · this site" },
+      { name: "CI/CD", usedAt: "Stock Analyzer · this site" },
+      { name: "Render" },
+      { name: "Agile/Scrum", usedAt: "MathGPT · VocabLearn" },
+      { name: "AI-assisted development (Claude Code)", usedAt: "Header · MathGPT · this site" },
     ],
   },
 ];
