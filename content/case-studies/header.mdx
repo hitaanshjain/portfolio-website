@@ -1,7 +1,7 @@
 ---
 title: "Header"
 slug: "header"
-timeframe: "June 2026 – Present"
+timeframe: "May 2026 – Present"
 role: "Software Engineer Intern"
 tags: ["Python", "FastAPI", "PostgreSQL", "React Native/Expo", "LLM Pipelines"]
 hook: "Production internship work at an AI briefing startup: full-stack briefing customization built on a dynamically assembled LLM prompt, a history feature designed around a cascade-delete constraint, and 400+ automated tests, all shipped to production through code review."
@@ -19,11 +19,10 @@ get one briefing that triages them. The stack is async Python with FastAPI and
 PostgreSQL on the backend, a React Native/Expo app on the frontend, and a
 three-stage LLM pipeline with six providers behind an adapter layer.
 
-I joined as a software engineer intern in June 2026. Of everything on this
+I joined as a software engineer intern in May 2026. Of everything on this
 site, this is the closest to plain production software engineering: a codebase
 with 100+ API endpoints, dozens of migrations, real users, and code review on
-every change. Eight PRs merged in my first two months, and the two biggest
-are below.
+every change.
 
 ## Briefing customization
 
@@ -56,6 +55,16 @@ as a literal file copy, so with the flag off the pipeline reproduced
 pre-feature behavior exactly. That made the merge itself a no-op. The flag has
 since been flipped on, and the feature is live in production.
 
+The newest piece is format control for Link Bankruptcy submissions, also live
+in production. At submit time a user now picks between a quick link triage, a
+full briefing, or a custom format built on the same section machinery,
+including up to five sections they write themselves, each a title plus
+plain-English instructions that feed straight into the assembled prompt. Its
+flag handling has one refinement over the layout rollout: with the feature
+flag off, the submit endpoint ignores format fields rather than rejecting
+them, so a mid-flight flip never turns a submission that was valid a second
+earlier into an error.
+
 ## A history feature shaped by a cascade
 
 Link Bankruptcy briefings were hidden from the normal dashboard, so a user who
@@ -79,39 +88,13 @@ pagination drifts when rows are inserted mid-scroll, and for per-user history
 at this scale keyset pagination would have been over-engineering. I would
 revisit that choice if the row counts grew.
 
-## The regression I shipped
-
-My default section order moved "What to do" from last place to second. Two
-strip functions, one on the briefing page and one in the email path, truncated
-the summary from that heading to the end of the string, which was only correct
-while the section was last. With my layout flag on, they amputated roughly 60%
-of the briefing body. I fixed both to cut to the next section heading instead,
-wrote 18 tests for the pair, then swept every other function that touched the
-summary for the same positional assumption. The sweep found nothing else.
-
-## Testing
-
-My merged diff is roughly 8,600 lines, and 54% of it is tests. Around 420 test
-functions across this work: 266 live in nine files I created on the main
-branch (257 pass, 9 skip), and the rest sit in files I extended and on
-branches still in review.
-
-The piece I would defend hardest in an interview is a DNS guard for the test
-suite. A mocked HTTP call in a unit test had rotted after a refactor and fell
-through to a real DNS lookup, staying green only because the dev box had
-internet. The guard intercepts hostname resolution at the socket layer and
-fails any unit test that reaches for the network, with a narrow pass-through
-for local test fixtures. It snapshots the real resolver at import time, before
-any test can monkeypatch it, so a rotted mock cannot shadow it the way the
-original one did.
-
 ## Where it stands
 
-Everything above is live in production: the layout feature, the history
-feature, the TLDR and read-time work, and a run of smaller fixes including an
-SSRF egress guard on an ingestor fetch path. Two more feature tracks are mine
-end to end, one of them larger than anything above, but both are unmerged and
-unannounced, so they stay vague here.
+Everything above is live in production: the layout feature, the Link
+Bankruptcy formats and history features, the TLDR and read-time work, and a
+run of smaller fixes including an SSRF egress guard on an ingestor fetch path.
+One more feature track is mine end to end, larger than anything above, but it
+is unmerged and unannounced, so it stays vague here.
 
 *The repository is private client work, so there's no public link, but I'm
 happy to walk through any of this in as much detail as an interview allows.*

@@ -44,7 +44,7 @@ export const experience: ExperienceEntry[] = [
     company: "Header",
     url: "https://joinheader.com",
     role: "Software Engineer Intern",
-    timeframe: "June 2026 – Present",
+    timeframe: "May 2026 – Present",
     caseStudySlug: "header",
     bullets: [
       "Shipped full-stack customization for AI-generated briefings (per-section reorder, toggles, and detail control) to production, refactoring generation from a hardcoded prompt to dynamically assembled sections backed by a JSONB section model.",

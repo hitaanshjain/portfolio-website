@@ -41,9 +41,9 @@ export function ExperienceTimeline() {
             {job.caseStudySlug && (
               <Link
                 href={`/projects/${job.caseStudySlug}`}
-                className="group mt-4 inline-block font-mono text-xs text-night link-underline"
+                className="group mt-4 inline-flex items-center gap-2 border border-night/40 px-3 py-1.5 font-mono text-xs text-night transition-colors hover:bg-night hover:text-paper motion-reduce:transition-none"
               >
-                Read more{" "}
+                Read the {job.company} case study
                 <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transition-none">
                   →
                 </span>
