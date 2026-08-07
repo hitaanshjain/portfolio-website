@@ -15,7 +15,7 @@ export function ProjectCard({ study }: { study: CaseStudy }) {
       </div>
       <p className="mt-1 font-mono text-[11px] text-ink-muted">{role}</p>
       {badge && (
-        <p className="mt-2 inline-block border border-ink/20 bg-paper px-2 py-0.5 font-mono text-[11px] tracking-wide">
+        <p className="mt-2 self-start border border-ink/20 bg-paper px-2 py-0.5 font-mono text-[11px] tracking-wide">
           {badge}
         </p>
       )}
