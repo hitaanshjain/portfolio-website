@@ -15,7 +15,7 @@ links:
 
 ## Context
 
-Swordfight!! is a top-down fighting game with 14 playable characters, boss
+Swordfight is a top-down fighting game with 14 playable characters, boss
 battles, per-character soundtracks, and leaderboards, built by a 10-person
 cross-functional student team in Unity and shipped to both the Google Play Store
 and itch.io, where the game page has drawn 150k views and holds 4.5★ across
@@ -53,14 +53,12 @@ out on schedule.
 
 ## Decisions & trade-offs
 
-- **Abstraction early, content late.** Building the weapon contract before the
-  full roster existed was a bet that paid off. Content creation became cheap
-  exactly when the team needed to scale it.
 - **HFSM over behavior trees.** For deterministic, designer-tunable boss
   patterns, nested state machines were simpler to reason about and debug than a
   behavior-tree framework would have been.
 - **Process as a deliverable.** On a student team, version control discipline
-  decided whether we shipped at all, so it got the same attention as the code.
+  and regular meetings decided whether we shipped at all, so it got the same
+  attention as the code.
 
 ## Results
 
