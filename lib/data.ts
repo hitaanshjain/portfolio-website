@@ -49,7 +49,7 @@ export const experience: ExperienceEntry[] = [
     caseStudySlug: "header",
     bullets: [
       "Shipped full-stack customization for AI-generated briefings (per-section reorder, toggles, and detail control) to production, refactoring generation from a hardcoded prompt to dynamically assembled sections backed by a JSONB section model.",
-      "Owned Link Bankruptcy (bulk-closes a user's open tabs and returns a briefing summarizing them) formatting end-to-end: built a paginated, authenticated FastAPI history endpoint with a React Native screen, and preserved submission metadata a scheduled cleanup job would otherwise have deleted.",
+      "Owned Link Bankruptcy (bulk-closes a user's open tabs and returns a briefing summarizing them) formatting end-to-end: built a paginated, authenticated FastAPI history endpoint with a React Native screen, a submit-time format picker with user-written sections, and preserved submission metadata a scheduled cleanup job would otherwise have deleted.",
       "Wrote 400+ automated tests on a test-per-feature workflow across a multi-provider LLM pipeline, FastAPI/PostgreSQL backend, and React Native/Expo frontend, with every change merged through a senior engineer's code review.",
     ],
   },
