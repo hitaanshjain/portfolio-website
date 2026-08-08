@@ -12,6 +12,15 @@ const nextConfig: NextConfig = {
         destination: "https://hitaansh.dev/:path*",
         permanent: true,
       },
+      // The resume used to live at /resume.pdf. Anyone who saved or shared
+      // that link (recruiters, submitted applications) still lands on the
+      // current file. Temporary so a future rename isn't fighting a cached
+      // permanent redirect.
+      {
+        source: "/resume.pdf",
+        destination: "/Hitaansh_Jain_Resume.pdf",
+        permanent: false,
+      },
     ];
   },
 };

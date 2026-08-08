@@ -4,7 +4,9 @@ export const siteConfig = {
   email: "hitaansh1912@gmail.com",
   github: "https://github.com/hitaanshjain",
   linkedin: "https://www.linkedin.com/in/hitaanshjain/",
-  resumePath: "/resume.pdf",
+  // Named rather than "resume.pdf" so it lands in a recruiter's downloads
+  // folder already labelled. next.config.ts redirects the old path.
+  resumePath: "/Hitaansh_Jain_Resume.pdf",
 };
 
 export const hero = {
