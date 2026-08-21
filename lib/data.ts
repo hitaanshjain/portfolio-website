@@ -30,16 +30,25 @@ export type ExperienceEntry = {
   caseStudySlug?: string;
 };
 
-// STALENESS CHECK (last reviewed 2026-08-05). When either internship ends,
+// STALENESS CHECK (last reviewed 2026-08-21). When either internship ends,
 // update all of the following together:
 //   1. the `timeframe` on that entry below ("… – Present" → an end month)
 //   2. the matching item in hero.statusLines[0] ("SWE Intern @ Header" etc.)
 //   3. present-tense bullets on that entry ("Building …" → "Built …")
 // Add the outcome at the same time ("shipped X before the internship ended").
 // Fall new-grad recruiting peaks Sept–Nov, so this needs to be right by then.
-// Also: case-study-pipeline.mdx says the pipeline "is going to be deployed to
-// MathGPT.ai production soon" (written Aug 2026, expected within the month).
-// Swap to "deployed at MathGPT.ai" the day it ships.
+// Also: case-study-pipeline.mdx now says the pipeline is "headed to production
+// on mathgpt.ai" (leadership signed off Aug 2026). Today it is deployed only as
+// an internal review tool with the student path off. Swap to "live at
+// MathGPT.ai" the day students can actually reach it, not the day it deploys.
+// Header recon 2026-08-21: tests re-measured and raised to "700+". "3 major
+// features owned", "100+ endpoints", "three-stage", "six providers" and
+// "dozens of migrations" all re-verified. Four sentences in header.mdx were
+// also corrected against the repo: the prompt-rollout sentence, the
+// stats-allowlist sentence, the format count, and the egress-guard line.
+// Do not restore any of them from memory. Re-check the source repo first.
+// Still open: confirm the end date with the manager before putting one on
+// either role.
 export const experience: ExperienceEntry[] = [
   {
     company: "Header",
@@ -50,7 +59,10 @@ export const experience: ExperienceEntry[] = [
     bullets: [
       "Shipped full-stack customization for AI-generated briefings (per-section reorder, toggles, and detail control) to production, refactoring generation from a hardcoded prompt to dynamically assembled sections backed by a JSONB section model.",
       "Owned Link Bankruptcy (bulk-closes a user's open tabs and returns a briefing summarizing them) formatting end-to-end: built a paginated, authenticated FastAPI history endpoint with a React Native screen, a submit-time format picker with user-written sections, and preserved submission metadata a scheduled cleanup job would otherwise have deleted.",
-      "Wrote 400+ automated tests on a test-per-feature workflow across a multi-provider LLM pipeline, FastAPI/PostgreSQL backend, and React Native/Expo frontend, with every change merged through a senior engineer's code review.",
+      // Unannounced surface with no public UI. Keep this at the shape of the
+      // work. Do not add specifics.
+      "Built a multi-phase backend lifecycle system across five stacked PRs, covering schema design, a state machine, the write API, email delivery, and agent-facing parity.",
+      "Wrote 700+ automated tests on a test-per-feature workflow across a multi-provider LLM pipeline, FastAPI/PostgreSQL backend, and React Native/Expo frontend, with every change merged through a senior engineer's code review.",
     ],
   },
   {
@@ -60,9 +72,9 @@ export const experience: ExperienceEntry[] = [
     timeframe: "May 2026 – Present",
     caseStudySlug: "case-study-pipeline",
     bullets: [
-      "Building a five-stage TypeScript/Next.js pipeline that turns a calculus textbook problem into three verified study artifacts: a compiled LaTeX case study, concept flashcards, and a step-by-step solution walkthrough.",
+      "Building a five-stage TypeScript/Next.js pipeline that turns a calculus textbook problem into three verified study artifacts: a compiled LaTeX case study, concept flashcards, and a step-by-step solution walkthrough, now deployed for internal review and headed to production.",
       "Designed a generator/critic LLM architecture where the critic re-solves each problem before the generator's drafts even exist, and halts the pipeline on mismatch.",
-      "Own the corpus extraction system, stage validation contracts, and MySQL flashcard cache, covered by 210 automated tests including negative controls, working on a three-intern Agile team with weekly project-lead syncs.",
+      "Own the corpus extraction system, stage validation contracts, and MySQL flashcard cache, covered by 900+ automated tests including negative controls, working on a three-intern Agile team with weekly project-lead syncs.",
     ],
   },
   {

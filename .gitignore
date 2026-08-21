@@ -29,3 +29,7 @@ Thumbs.db
 /headshot.jpg
 /pfp.jpg
 .vercel
+
+# Recon dumps: client-confidential, never commit (this repo is public)
+portfolio[-_]recon[-_]*.md
+*recon*.md

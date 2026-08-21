@@ -6,7 +6,7 @@ role: "AI Intern @ MathGPT · 3-intern team"
 tags: ["TypeScript", "Next.js", "React", "MySQL", "LaTeX", "LLM Orchestration"]
 hook: "Turns a calculus textbook problem into three verified study artifacts for struggling college students: a case-study worksheet, concept flashcards, and a step-by-step solution walkthrough."
 order: 2
-badge: "3 artifacts per run · 210 tests"
+badge: "3 artifacts per run · 900+ tests"
 links:
   - label: "mathgpt.ai"
     href: "https://mathgpt.ai"
@@ -41,14 +41,17 @@ Grounding comes from OpenStax Calculus Volume 1: 45 sections and 195 learning
 objectives, extracted by page rendering with visual verification because
 standard PDF text extraction silently drops inline math. When a problem falls
 outside the corpus, Stage 1 emits no primary section and the downstream stages
-refuse to run instead of inventing a citation. A six-table MySQL schema caches
-generated content keyed by textbook section. A uniqueness constraint on the
+refuse to run instead of inventing a citation. A nine-table MySQL schema caches
+generated content keyed by textbook section and holds the template banks. A uniqueness constraint on the
 cache table enforces one card per type per concept, so the rule holds even if
 application code forgets it. The walkthrough is cached the same way: the first
 run in a section generates it, and later runs replay the stored JSON. When a
 client-supplied template bank holds a problem for the section, the run
 animates that problem and its pre-verified answers instead of inventing its
-own.
+own. A picked template also skips Stage 1 and the critic outright, three model
+calls down to zero, because a human already vouched for that problem. Every
+gate on generated content still runs, since the audit vouches for the problem
+and never for model output.
 
 The runtime is TypeScript end to end: Next.js with React 19, the pipeline
 running server-side inside the app. Python shows up in exactly two offline
@@ -66,7 +69,7 @@ run, because treating an unknown verdict as a pass would let an uncertified
 answer through. The critic's edits come back as a patch restricted to an
 explicit field whitelist, so it can't touch fields the generator owns.
 
-## Four hard problems
+## Five hard problems
 
 **Making independence structural.** The first design sent the critic one
 message containing both the problem and the drafts, with an instruction to
@@ -82,7 +85,9 @@ paths: MathJax-typeset prose, plain text, and labels baked into SVG where
 LaTeX can't render at all. The original detector missed 11 of 15 realistic
 samples. The shipped one strips correctly delimited math spans and then flags
 any backslash command or stray brace. It has already caught real model output
-once in a live run.
+once in a live run. A later pass added a gate for spelled-out Greek, with the
+word list measured rather than chosen: infinity, delta, and epsilon are
+deliberately exempt, because gating them rejected four correct cards.
 
 **Plots that can't silently lie.** Letting the model supply coordinates puts
 its arithmetic on the critical path with nothing to catch a bad point, and
@@ -104,6 +109,16 @@ substitution. A strip test catches decorative context, because a scenario that
 changes nothing when you remove it gets redesigned. And every worksheet
 compiles through the same fixed LaTeX template, so the format cannot drift.
 
+**Valid LaTeX of the wrong thing.** Importing a linear algebra bank meant
+converting AsciiMath, so I wrote a parser for it and the importable count went
+from 38 to 212. The failures that mattered were not syntax errors. A browser
+review turned up four cases that compiled cleanly and rendered the wrong
+mathematics: DNE typeset as D times N times E, a bare percent sign silently
+eating the rest of an expression, a matrix inside parentheses dropping every
+term after it. MathJax reported zero errors before the fixes and zero after.
+No mechanical gate can see this class, so the check has to be a human reading
+rendered output.
+
 ## What it costs
 
 Every run writes a per-stage token log. Profiling one run showed roughly 74%
@@ -113,16 +128,21 @@ effort, the critic's patch format replacing full document re-emission, and a
 rolling prompt-cache breakpoint in the tool loop that ended quadratic context
 growth. Comparable runs got 39% cheaper and dropped from 14.8 minutes to 7.5,
 though that compares consecutive runs on different problems, not a controlled
-A/B.
+A/B. The deck path later moved to the Batch API at half price, which surfaced a
+defect of its own: the batch call omitted the per-stage effort setting and ran
+at the API default instead. On the same three templates that was 11,726 output
+tokens per deck against 5,343, $0.32 against $0.13, and two of three passing
+against three of three.
 
 ## Where it stands
 
-210 automated tests across 12 files: unit, integration against live MySQL, and
+900+ automated tests across 56 files: unit, integration against live MySQL, and
 two end-to-end suites that drive the full pipeline against mocked LLM replies
 and a real LaTeX compile. The negative controls are on disk and must fail:
 corrupted critic replies, invalid card and deck payloads, duplicate-key and
-phantom-foreign-key rejections. It only runs locally but is going to be
-deployed to MathGPT.ai production soon.
+phantom-foreign-key rejections. It's deployed and in daily use for internal
+review, with the student path switched off until generated content clears that
+review, and it's headed to production on mathgpt.ai.
 
 *The repository is private client work, so there's no public link, but I'm
 happy to walk through the verification architecture in detail.*
