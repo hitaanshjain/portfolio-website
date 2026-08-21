@@ -7,7 +7,7 @@ import { About } from "@/components/About";
 
 export default function Home() {
   return (
-    <main>
+    <main id="main" className="scroll-mt-16 md:scroll-mt-20">
       <Hero />
       <ExperienceTimeline />
       <FeaturedProjects />

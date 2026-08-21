@@ -3,7 +3,7 @@ import { experience } from "@/lib/data";
 
 export function ExperienceTimeline() {
   return (
-    <section id="experience" className="mx-auto max-w-5xl px-6 py-16">
+    <section id="experience" className="mx-auto max-w-5xl scroll-mt-16 px-6 py-16 md:scroll-mt-20">
       <h2 className="font-mono text-sm uppercase tracking-widest text-ink-muted">Experience</h2>
       <div className="mt-8 space-y-12 border-l border-ink/10 pl-6 md:pl-10">
         {experience.map((job) => (

@@ -11,7 +11,7 @@ export function CaseStudyLayout({
 }) {
   const { title, role, timeframe, tags, badge, pixel, links } = frontmatter;
   return (
-    <main className="mx-auto max-w-3xl px-6 py-12">
+    <main id="main" className="mx-auto max-w-3xl scroll-mt-16 px-6 py-12 md:scroll-mt-20">
       <Link href="/#projects" className="link-underline font-mono text-xs text-night">
         ← All projects
       </Link>

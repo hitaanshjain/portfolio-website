@@ -7,7 +7,7 @@ export function ProjectCard({ study }: { study: CaseStudy }) {
   return (
     <Link
       href={`/projects/${slug}`}
-      className="group flex h-full flex-col rounded-lg border border-ink/10 bg-white/40 p-6 transition-all duration-200 hover:-translate-y-1 hover:border-night/30 hover:shadow-[0_8px_30px_rgba(20,36,92,0.08)] motion-reduce:transition-none motion-reduce:transform-none"
+      className="group flex h-full flex-col rounded-lg border border-ink/10 bg-white/40 p-6 transition-all duration-200 hover:-translate-y-1 hover:border-night/30 hover:shadow-[0_8px_30px_rgba(20,36,92,0.08)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-night motion-reduce:transition-none motion-reduce:transform-none"
     >
       <div className="flex items-center gap-2">
         {pixel && <PixelSword />}

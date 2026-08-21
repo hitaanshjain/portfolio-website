@@ -13,7 +13,7 @@ const FALLBACK_ACCENT = { dot: "bg-ink/40", chip: "border-ink/10 hover:border-in
 
 export function Skills() {
   return (
-    <section id="skills" className="mx-auto max-w-5xl px-6 py-16">
+    <section id="skills" className="mx-auto max-w-5xl scroll-mt-16 px-6 py-16 md:scroll-mt-20">
       <h2 className="font-mono text-sm uppercase tracking-widest text-ink-muted">Skills</h2>
       <div className="mt-8 space-y-6">
         {skills.map(({ group, items }) => {
@@ -26,18 +26,30 @@ export function Skills() {
               </h3>
               <ul className="mt-2 flex flex-wrap gap-2">
                 {items.map((item, i) => (
+                  // The `title` attribute used to sit here alongside the
+                  // styled tooltip, which meant a hovering mouse user got
+                  // both the native tooltip and this one. Dropped: the
+                  // styled tooltip below covers pointers, the sr-only span
+                  // covers assistive tech, and `title` never surfaces on
+                  // keyboard focus in any browser, so it was never the
+                  // thing making this reachable.
                   <li
                     key={item.name}
-                    title={item.usedAt}
-                    className={`group relative cursor-default rounded-md border bg-white/40 px-2.5 py-1 font-mono text-xs transition-transform duration-150 hover:-translate-y-0.5 motion-reduce:transition-none motion-reduce:transform-none ${accent.chip} ${
+                    className={`skill-chip relative cursor-default rounded-md border bg-white/40 px-2.5 py-1 font-mono text-xs transition-transform duration-150 hover:-translate-y-0.5 motion-reduce:transition-none motion-reduce:transform-none ${accent.chip} ${
                       i % 2 ? "hover:rotate-1" : "hover:-rotate-1"
                     }`}
                   >
                     {item.name}
                     {item.usedAt && (
-                      <span className="pointer-events-none absolute -top-8 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded border border-ink/10 bg-night px-2 py-1 font-mono text-[10px] text-paper opacity-0 shadow-sm transition-opacity duration-150 group-hover:opacity-100 motion-reduce:transition-none">
-                        {item.usedAt}
-                      </span>
+                      <>
+                        {/* Unconditional for screen readers: where a skill
+                            was used is evidence for the claim, so it should
+                            not depend on a pointer being present. */}
+                        <span className="sr-only"> (used at {item.usedAt})</span>
+                        <span aria-hidden="true" className="skill-note">
+                          {item.usedAt}
+                        </span>
+                      </>
                     )}
                   </li>
                 ))}
