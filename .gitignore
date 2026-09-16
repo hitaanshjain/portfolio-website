@@ -1,4 +1,4 @@
-# Skill/tooling assets — not part of the portfolio site
+# Local tooling: agent skills, plans, and review artifacts. Not part of the site.
 .agents/
 .claude/
 .impeccable/
@@ -12,24 +12,22 @@ node_modules/
 .next/
 out/
 build/
+*.tsbuildinfo
+next-env.d.ts
 
-# Env & local
+# Env & deploy
 .env*
 !.env.example
 .vercel/
-*.tsbuildinfo
-next-env.d.ts
 
 # OS
 .DS_Store
 Thumbs.db
 
-# Source assets (copies live in public/)
-/Hitaansh_Jain_Resume.pdf
-/headshot.jpg
-/pfp.jpg
-.vercel
+# Original, full-size source images. The optimized copies live in public/.
+/assets-src/
 
-# Recon dumps: client-confidential, never commit (this repo is public)
-portfolio[-_]recon[-_]*.md
+# Recon notes: client-confidential, never commit (this repo is public)
 *recon*.md
+*followup*.md
+*answers*.md

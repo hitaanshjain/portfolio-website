@@ -1,6 +1,6 @@
-# hitaanshjain.vercel.app — portfolio
+# hitaansh.dev
 
-Personal portfolio: one-page home + MDX case studies.
+Personal portfolio: a one-page home plus MDX case studies.
 
 **Stack:** Next.js 15 (App Router) · TypeScript · Tailwind CSS v4 · next-mdx-remote · Vitest
 
@@ -17,8 +17,9 @@ npm run dev
 npm run lint && npm run typecheck && npm test && npm run build
 ```
 
-## Content
+## Where things live
 
-- Homepage copy: `lib/data.ts`
+- Homepage copy and experience bullets: `lib/data.ts`
 - Case studies: `content/case-studies/*.mdx` (frontmatter validated by `lib/case-studies.ts`)
-- Resume: `public/resume.pdf`
+- Resume: `public/Hitaansh_Jain_Resume.pdf` (the old `/resume.pdf` URL redirects here)
+- Images: `public/images/`
