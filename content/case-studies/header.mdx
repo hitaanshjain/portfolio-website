@@ -1,12 +1,12 @@
 ---
 title: "Header"
 slug: "header"
-timeframe: "May 2026 – Present"
+timeframe: "May 2026 – Aug 2026"
 role: "Software Engineer Intern"
 tags: ["Python", "FastAPI", "PostgreSQL", "React Native/Expo", "LLM Pipelines"]
 hook: "Production internship work at an AI briefing startup: full-stack briefing customization built on a dynamically assembled LLM prompt, user-authored briefing formats validated hard enough to feed an LLM safely, and 700+ automated tests, all shipped to production through code review."
 order: 1
-badge: "3 major features owned · 700+ tests"
+badge: "3 major features built · 700+ tests"
 links:
   - label: "joinheader.com"
     href: "https://joinheader.com"
@@ -16,8 +16,8 @@ links:
 
 Header turns the feeds a user already follows (RSS, YouTube channels,
 newsletters, Reddit, X) into LLM-written briefings against user-defined goals.
-There is also a feature called Link Bankruptcy: paste a pile of saved URLs and
-get one briefing that triages them. The stack is async Python with FastAPI and
+There is also a feature called Link Bankruptcy, since renamed Clear Tabs:
+paste a pile of saved URLs and get one briefing that triages them. The stack is async Python with FastAPI and
 PostgreSQL on the backend, a React Native/Expo app on the frontend, and a
 three-stage LLM pipeline with six providers behind an adapter layer.
 
@@ -54,7 +54,8 @@ mirrors what the backend already enforces.
 
 Rollout went through a default-off feature flag, with the old prompt kept
 alongside the new one so the flag could switch between them. The flag has
-since been flipped on, and the feature is live in production.
+since been turned on, and briefings in production now come out in the new
+section order.
 
 The TLDR needed a second pass of its own. My first fix scaled sentence count
 with body length, which treated a selection problem as a length problem: the
@@ -65,16 +66,15 @@ reported, which confirmed the diagnosis instead of assuming it. The budget arm
 came in at 122 words, with mean sentence length down from 44 to 24. Two runs
 per arm, so it is a directional check rather than a measurement.
 
-The newest piece is format control for Link Bankruptcy submissions. A
-submitter picks one of the three formats I shipped: a quick link triage, a
-full briefing, or
-a custom format built on the same section machinery. Custom means up to five
-sections the user writes themselves, each a title plus plain-English
-instructions that feed straight into the assembled prompt, and the
-instructions carry the length intent instead of a preset detail knob.
-Validation is strict in both directions: custom sections are required when the
-format asks for them and rejected when it doesn't, with hard caps on count and
-length so a submission can never smuggle an unbounded prompt into the
+Another piece was format control for Link Bankruptcy submissions. A submitter
+picked one of three formats I shipped: a quick link triage, a full briefing, or
+a custom format built on the same section machinery. Custom meant up to five
+sections the user wrote themselves, each a title plus plain-English
+instructions that fed straight into the assembled prompt, with the
+instructions carrying the length intent instead of a preset detail knob.
+Validation was strict in both directions: custom sections were required when
+the format asked for them and rejected when it didn't, with hard caps on count
+and length so a submission could never smuggle an unbounded prompt into the
 pipeline.
 
 ## A history feature shaped by a cascade
@@ -98,22 +98,26 @@ moment a briefing finished. The new field had to join the allowlist too.
 Pagination is bounded limit/offset with a separate count query. Offset
 pagination drifts when rows are inserted mid-scroll, and for per-user history
 at this scale keyset pagination would have been over-engineering. I would
-revisit that choice if the row counts grew.
+revisit that choice if the row counts grew. That endpoint now backs two
+shipped surfaces, the renamed history screen in the app and a list of recent
+submissions in the Chrome extension, and its count query drives a badge in the
+UI.
 
 ## Where it stands
 
 Everything above is live in production: the layout feature, the Link
-Bankruptcy formats and history features, and the TLDR and read-time work.
+Bankruptcy history feature, and the TLDR and read-time work.
 Smaller fixes shipped alongside them, including a repo-wide DNS guard for the
 test suite, a flaky end-to-end test that had been blocking a production
 deploy, cross-platform test-infrastructure work, and closing a gap where one
 content-ingestion path bypassed an egress-validation control that a sibling
 path already had.
 
-One more feature track is mine end to end and larger than anything above: a
-multi-phase backend lifecycle system covering schema, state machine, write
-API, email delivery, and agent-facing parity, built across five stacked PRs.
-It is unannounced, so it stays vague here.
+One more feature track I built, larger than anything above: a multi-phase
+backend lifecycle system covering schema, state machine, write API, email
+delivery, and agent-facing parity, across five stacked PRs, the last of which
+shipped its web UI. All five are merged. The details aren't public, so it
+stays vague here.
 
 *The repository is private client work, so there's no public link, but I'm
 happy to walk through any of this in as much detail as an interview allows.*

@@ -1,12 +1,12 @@
 ---
 title: "AI Case Study Pipeline"
 slug: "case-study-pipeline"
-timeframe: "May 2026 – Present"
+timeframe: "May 2026 – Aug 2026"
 role: "AI Intern @ MathGPT · 3-intern team"
 tags: ["TypeScript", "Next.js", "React", "MySQL", "LaTeX", "LLM Orchestration"]
 hook: "Turns a calculus textbook problem into three verified study artifacts for struggling college students: a case-study worksheet, concept flashcards, and a step-by-step solution walkthrough."
 order: 2
-badge: "3 artifacts per run · 900+ tests"
+badge: "3 artifacts per run · 1,000+ tests"
 links:
   - label: "mathgpt.ai"
     href: "https://mathgpt.ai"
@@ -14,13 +14,13 @@ links:
 
 ## Context
 
-At MathGPT I'm building a pipeline that turns one calculus problem into three
+At MathGPT I built a pipeline that turns one calculus problem into three
 student-facing artifacts: a two-page LaTeX case-study worksheet (student sheet
 plus answer key) compiled to PDF, a set of concept flashcards, and a
 step-by-step solution walkthrough the browser renders one step at a time. A student
 picks a textbook question or pastes their own problem, and a Next.js app runs
-the pipeline server-side and presents all three results. I work on a
-three-intern team with weekly syncs with the project lead. I own the pipeline
+the pipeline server-side and presents all three results. I worked on a
+three-intern team with weekly syncs with the project lead. I owned the pipeline
 end to end, and the flashcard and case-study prompts were written together with
 the team.
 
@@ -32,9 +32,11 @@ answer can't always be trusted.** Everything downstream follows from that.
 Five tracked stages. A generator solves the problem with read-only corpus tools
 and maps it to textbook sections. A critic verifies it (next section). Three
 stages then fan out in parallel: the LaTeX case study compiled with Tectonic,
-the concept cards, and the practice deck. Every stage's output must pass a zod
-contract before it counts, and a failed validation feeds the validator's errors
-into exactly one retry. The fan-out stages fail independently, so a bad deck
+the concept cards, and the practice deck. The JSON artifacts must pass a zod
+contract before they count, and a failed validation feeds the validator's
+errors into exactly one retry. The case study is gated on a real LaTeX compile
+instead, also with one retry, and Stage 1 is checked for the files it should
+have produced. The fan-out stages fail independently, so a bad deck
 can't take down a good worksheet.
 
 Grounding comes from OpenStax Calculus Volume 1: 45 sections and 195 learning
@@ -45,7 +47,8 @@ refuse to run instead of inventing a citation. A nine-table MySQL schema caches
 generated content keyed by textbook section and holds the template banks. A uniqueness constraint on the
 cache table enforces one card per type per concept, so the rule holds even if
 application code forgets it. The walkthrough is cached the same way: the first
-run in a section generates it, and later runs replay the stored JSON. When a
+run in a section generates it, and later runs replay the stored JSON, except
+for picked-template runs, which bypass the cache in both directions. When a
 client-supplied template bank holds a problem for the section, the run
 animates that problem and its pre-verified answers instead of inventing its
 own. A picked template also skips Stage 1 and the critic outright, three model
@@ -54,8 +57,8 @@ gate on generated content still runs, since the audit vouches for the problem
 and never for model output.
 
 The runtime is TypeScript end to end: Next.js with React 19, the pipeline
-running server-side inside the app. Python shows up in exactly two offline
-corpus build tools, 128 lines between them, and never serves a request.
+running server-side inside the app. Python shows up in four offline
+corpus build tools, roughly 300 lines between them, and never serves a request.
 
 ## The critic
 
@@ -67,7 +70,9 @@ its own solution replayed as a prior turn. On a mismatch the run fails and
 ships nothing. An unreadable critic reply gets one retry and then fails the
 run, because treating an unknown verdict as a pass would let an uncertified
 answer through. The critic's edits come back as a patch restricted to an
-explicit field whitelist, so it can't touch fields the generator owns.
+explicit field whitelist. A whole-document reply is still accepted as a
+fallback, checked for dropped keys rather than field by field, so the patch is
+the preferred shape rather than the only one.
 
 ## Five hard problems
 
@@ -84,10 +89,13 @@ fields that later stages depend on. Hence the whitelist patch.
 paths: MathJax-typeset prose, plain text, and labels baked into SVG where
 LaTeX can't render at all. The original detector missed 11 of 15 realistic
 samples. The shipped one strips correctly delimited math spans and then flags
-any backslash command or stray brace. It has already caught real model output
-once in a live run. A later pass added a gate for spelled-out Greek, with the
-word list measured rather than chosen: infinity, delta, and epsilon are
-deliberately exempt, because gating them rejected four correct cards.
+any backslash command or stray brace. A sibling rule in the same family, the
+one that keeps LaTeX out of figure labels where it cannot render at all, has
+already rejected real model output in a live run. A later pass added a gate
+for spelled-out Greek in concept-card prose, with the word list measured
+rather than chosen: infinity,
+delta, and epsilon are deliberately exempt, because gating them rejected four
+correct cards.
 
 **Plots that can't silently lie.** Letting the model supply coordinates puts
 its arithmetic on the critical path with nothing to catch a bad point, and
@@ -107,7 +115,8 @@ application of the same idea. Difficulty has a budget: three connected stages,
 at most five tasks, a 15 to 20 minute target, and no stage that is one-step
 substitution. A strip test catches decorative context, because a scenario that
 changes nothing when you remove it gets redesigned. And every worksheet
-compiles through the same fixed LaTeX template, so the format cannot drift.
+compiles against the same fixed preamble, specified in the prompt and compiled
+with Tectonic, so the format stays put.
 
 **Valid LaTeX of the wrong thing.** Importing a linear algebra bank meant
 converting AsciiMath, so I wrote a parser for it and the importable count went
@@ -130,19 +139,28 @@ growth. Comparable runs got 39% cheaper and dropped from 14.8 minutes to 7.5,
 though that compares consecutive runs on different problems, not a controlled
 A/B. The deck path later moved to the Batch API at half price, which surfaced a
 defect of its own: the batch call omitted the per-stage effort setting and ran
-at the API default instead. On the same three templates that was 11,726 output
-tokens per deck against 5,343, $0.32 against $0.13, and two of three passing
-against three of three.
+at the API default instead. On the same three templates that was $0.32 against
+$0.13 for the three-deck batch, about $0.107 a deck against $0.043.
 
 ## Where it stands
 
-900+ automated tests across 56 files: unit, integration against live MySQL, and
-two end-to-end suites that drive the full pipeline against mocked LLM replies
-and a real LaTeX compile. The negative controls are on disk and must fail:
+The review side grew its own tooling. Every stored card and deck is stamped
+with the template, book, section, and learning objective it came from, so a
+reviewer can trace any artifact back to its source. A rejection is tagged as
+either a content or a display problem, and a display rejection sends the
+artifact back to the model with its stored JSON and the reviewer's note, where
+an unchanged reply is the signal that the renderer is at fault rather than the
+content. One classifier now covers LaTeX formatting across every generated
+surface, and a bulk exporter reconciles against an independent count and
+refuses to write a short export.
+
+1,000+ automated tests across 73 files: unit, integration against live MySQL,
+and two end-to-end suites that drive the full pipeline against mocked LLM
+replies and a real LaTeX compile. The negative controls are on disk and must fail:
 corrupted critic replies, invalid card and deck payloads, duplicate-key and
-phantom-foreign-key rejections. It's deployed and in daily use for internal
-review, with the student path switched off until generated content clears that
-review, and it's headed to production on mathgpt.ai.
+phantom-foreign-key rejections. It's deployed and used for internal review,
+with the student run path disabled on the hosted instance, and the generated
+content has been handed to MathGPT's engineering team for integration.
 
 *The repository is private client work, so there's no public link, but I'm
 happy to walk through the verification architecture in detail.*
