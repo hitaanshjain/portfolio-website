@@ -16,7 +16,7 @@ links:
 
 Header turns the feeds a user already follows (RSS, YouTube channels,
 newsletters, Reddit, X) into LLM-written briefings against user-defined goals.
-There is also a feature called Link Bankruptcy, since renamed Clear Tabs:
+There is also a feature called Clear Tabs, which shipped as Link Bankruptcy:
 paste a pile of saved URLs and get one briefing that triages them. The stack is async Python with FastAPI and
 PostgreSQL on the backend, a React Native/Expo app on the frontend, and a
 three-stage LLM pipeline with six providers behind an adapter layer.
@@ -66,7 +66,7 @@ reported, which confirmed the diagnosis instead of assuming it. The budget arm
 came in at 122 words, with mean sentence length down from 44 to 24. Two runs
 per arm, so it is a directional check rather than a measurement.
 
-Another piece was format control for Link Bankruptcy submissions. A submitter
+Another piece was format control for Clear Tabs submissions. A submitter
 picked one of three formats I shipped: a quick link triage, a full briefing, or
 a custom format built on the same section machinery. Custom meant up to five
 sections the user wrote themselves, each a title plus plain-English
@@ -79,7 +79,7 @@ pipeline.
 
 ## A history feature shaped by a cascade
 
-Link Bankruptcy briefings were hidden from the normal dashboard, so a user who
+Clear Tabs briefings were hidden from the normal dashboard, so a user who
 lost the direct URL had no way back to a past submission. I added a paginated,
 authenticated history endpoint and a history screen listing every past
 briefing with its status and URL count.
@@ -105,8 +105,8 @@ UI.
 
 ## Where it stands
 
-Everything above is live in production: the layout feature, the Link
-Bankruptcy history feature, and the TLDR and read-time work.
+Everything above is live in production: the layout feature, the Clear Tabs
+history feature, and the TLDR and read-time work.
 Smaller fixes shipped alongside them, including a repo-wide DNS guard for the
 test suite, a flaky end-to-end test that had been blocking a production
 deploy, cross-platform test-infrastructure work, and closing a gap where one

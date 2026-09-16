@@ -67,7 +67,7 @@ export const experience: ExperienceEntry[] = [
     caseStudySlug: "header",
     bullets: [
       "Shipped full-stack customization for AI-generated briefings (per-section reorder, toggles, and detail control) to production, refactoring generation from a hardcoded prompt to dynamically assembled sections backed by a JSONB section model.",
-      "Built Link Bankruptcy (bulk-closes a user's open tabs and returns a briefing summarizing them) formatting end-to-end: built a paginated, authenticated FastAPI history endpoint with a React Native screen, a submit-time format picker with user-written sections, and preserved submission metadata a scheduled cleanup job would otherwise have deleted.",
+      "Built Clear Tabs (bulk-closes a user's open tabs and returns a briefing summarizing them, shipped as Link Bankruptcy) formatting end-to-end: built a paginated, authenticated FastAPI history endpoint with a React Native screen, a submit-time format picker with user-written sections, and preserved submission metadata a scheduled cleanup job would otherwise have deleted.",
       // Unannounced surface with no public UI. Keep this at the shape of the
       // work. Do not add specifics.
       "Built a multi-phase backend lifecycle system across five stacked PRs, covering schema design, a state machine, the write API, email delivery, and agent-facing parity, plus the web UI in the final PR.",
