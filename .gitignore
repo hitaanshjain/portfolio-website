@@ -27,6 +27,9 @@ Thumbs.db
 # Original, full-size source images. The optimized copies live in public/.
 /assets-src/
 
+# Resume drafts dropped at the repo root. The served copy lives in public/.
+/Hitaansh_Jain_Resume*.pdf
+
 # Recon notes: client-confidential, never commit (this repo is public)
 *recon*.md
 *followup*.md
