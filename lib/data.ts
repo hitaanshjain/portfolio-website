@@ -14,7 +14,7 @@ export const hero = {
   // Two rows: identity first, availability second. One row of five
   // dot-separated items wraps into an unreadable block on narrow screens.
   statusLines: [
-    ["Prev. SWE Intern @ Header", "Prev. AI Intern @ MathGPT", "3.93 GPA"],
+    ["Prev. SWE Intern @ Header", "Prev. SWE Intern (AI/ML) @ MathGPT", "3.93 GPA"],
     ["Open to new grad SWE opportunities starting Summer 2027", "Seattle-based, open to relocation"],
   ],
 };
@@ -77,7 +77,7 @@ export const experience: ExperienceEntry[] = [
   {
     company: "MathGPT",
     url: "https://mathgpt.ai",
-    role: "AI Intern (Part-Time)",
+    role: "Software Engineer Intern (AI/ML)",
     timeframe: "May 2026 – Aug 2026",
     caseStudySlug: "case-study-pipeline",
     bullets: [
