@@ -79,6 +79,15 @@ exists for exactly that reason and has not been run yet.
 
 ## Decisions and trade-offs
 
+- **Sealed by default, and tested that way.** The default deployment runs every
+  service on an internal Docker network behind a localhost gateway that drops
+  its default route at startup. With it running, the backend could not resolve
+  or reach an outside host, and a full ingest of all 1,070 pages plus a cited
+  answer through the UI still worked. Vector-store telemetry is off in code and
+  guarded by a test, and OCR models ship in the image instead of downloading on
+  first use. It is isolation by configuration, not a hardware air gap: the
+  gateway still sits on the bridge Docker needs to publish localhost ports, and
+  no packet capture has been run.
 - **Provenance in metadata, and citations built from it.** An earlier version
   prepended a source and page header into the chunk text itself, which only
   ever landed on the first chunk of a page. Metadata is what actually carries
@@ -95,8 +104,8 @@ exists for exactly that reason and has not been run yet.
 
 On the 28-question benchmark, the shipped hybrid retrieval puts the right page
 in the top 3 for 89.3% of questions and the right document for 100%, against
-64.3% page hit@3 for the vector leg alone. 142 automated tests cover ingestion,
-retrieval, answering, and the frontend.
+64.3% page hit@3 for the vector leg alone. 145 automated tests cover ingestion,
+retrieval, answering, the network configuration, and the frontend.
 
 The honest gaps: the holdout has never been run, the citation judge agrees with
 human labels on only 1 of 5 partial-support cases, a query that names its own
