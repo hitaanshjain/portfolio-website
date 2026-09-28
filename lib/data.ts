@@ -58,6 +58,10 @@ export type ExperienceEntry = {
 //     "live at MathGPT.ai" only when students can actually reach it.
 //   - MathGPT: the zod-contract, critic-whitelist, cached-walkthrough and
 //     fixed-LaTeX-template sentences were scoped down to what the code does.
+// rag-search.mdx is dated "July 2025 – Present" because that project is still
+// worked on, intermittently (last burst Sept 2026, 27 commits in five days).
+// If a year passes with no commits to local-rag-search-engine, close the
+// range rather than leaving "Present" to rot.
 export const experience: ExperienceEntry[] = [
   {
     company: "Header",
