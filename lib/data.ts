@@ -15,7 +15,7 @@ export const hero = {
   // dot-separated items wraps into an unreadable block on narrow screens.
   statusLines: [
     ["Prev. SWE Intern @ Header", "Prev. SWE Intern, AI @ MathGPT", "3.93 GPA"],
-    ["Open to new grad SWE opportunities starting Summer 2027", "Seattle-based, open to relocation"],
+    ["Open to new grad SWE opportunities starting Summer 2027", "New York-based, open to relocation"],
   ],
 };
 
