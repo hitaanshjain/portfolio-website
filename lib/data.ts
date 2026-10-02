@@ -75,7 +75,7 @@ export const experience: ExperienceEntry[] = [
       "Built the Follow-ups feature, letting users capture ideas from their briefings and follow them through to a recorded verdict: a 6-state lifecycle, 9 REST endpoints, 3 migrations, email reminders, and a React Native web UI, live in production.",
       "Shipped full-stack briefing customization to production (reorder, toggles, detail control, LLM TLDR) by refactoring a hardcoded prompt into blocks assembled from a JSONB layout model, and cut TLDR length by 45% with a word budget.",
       "Delivered the briefing formats and history view for Clear Tabs: a submit-time format picker with validated user-written sections, plus a React Native history screen on an authenticated, paginated FastAPI endpoint.",
-      "Engineered an API that lets users' AI coding agents drive Follow-ups: row-locked, forward-only sync with an audit event per change, credential-derived verdict authority, per-key approval gating, and a compare-and-set fix for a delete race.",
+      "Engineered an API that lets AI coding agents drive Follow-ups concurrently with their users: row-locked, forward-only sync with an audit event per change, credential-derived verdict authority, per-key approval gating, and a compare-and-set fix for a delete race.",
       "Wrote 750+ automated tests across an LLM pipeline, FastAPI/PostgreSQL backend, and React Native/Expo frontend, and merged every change through senior engineer review.",
     ],
   },
