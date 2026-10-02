@@ -30,7 +30,9 @@ export type ExperienceEntry = {
   caseStudySlug?: string;
 };
 
-// STALENESS CHECK (last reviewed 2026-09-16, both repos reconned 2026-09-15).
+// STALENESS CHECK (last reviewed 2026-10-02, both repos reconned 2026-09-15).
+// 2026-10-02: Follow-ups is named publicly by the author's decision, matching
+// the resume, although Header had not announced it on any public surface.
 // Both roles end at Aug 2026 here. MathGPT work did continue into September on
 // a contract extension, but the site closes both roles in August by decision.
 // Do not "correct" that. Fall new-grad recruiting peaks Sept–Nov.
@@ -70,12 +72,11 @@ export const experience: ExperienceEntry[] = [
     timeframe: "May 2026 – Aug 2026",
     caseStudySlug: "header",
     bullets: [
-      "Shipped full-stack customization for AI-generated briefings (per-section reorder, toggles, and detail control) to production, refactoring generation from a hardcoded prompt to dynamically assembled sections backed by a JSONB section model.",
-      "Built Clear Tabs (bulk-closes a user's open tabs and returns a briefing summarizing them, shipped as Link Bankruptcy) formatting end-to-end: built a paginated, authenticated FastAPI history endpoint with a React Native screen, a submit-time format picker with user-written sections, and preserved submission metadata a scheduled cleanup job would otherwise have deleted.",
-      // Unannounced surface with no public UI. Keep this at the shape of the
-      // work. Do not add specifics.
-      "Built a multi-phase backend lifecycle system across five stacked PRs, covering schema design, a state machine, the write API, email delivery, and agent-facing parity, plus the web UI in the final PR.",
-      "Wrote 700+ automated tests on a test-per-feature workflow across a multi-provider LLM pipeline, FastAPI/PostgreSQL backend, and React Native/Expo frontend, with every change merged through a senior engineer's code review.",
+      "Built the Follow-ups feature, letting users capture ideas from their briefings and follow them through to a recorded verdict: a 6-state lifecycle, 9 REST endpoints, 3 migrations, email reminders, and a React Native web UI, live in production.",
+      "Shipped full-stack briefing customization to production (reorder, toggles, detail control, LLM TLDR) by refactoring a hardcoded prompt into blocks assembled from a JSONB layout model, and cut TLDR length by 45% with a word budget.",
+      "Delivered the briefing formats and history view for Clear Tabs: a submit-time format picker with validated user-written sections, plus a React Native history screen on an authenticated, paginated FastAPI endpoint.",
+      "Engineered an API that lets users' AI coding agents drive Follow-ups: row-locked, forward-only sync with an audit event per change, credential-derived verdict authority, per-key approval gating, and a compare-and-set fix for a delete race.",
+      "Wrote 750+ automated tests across an LLM pipeline, FastAPI/PostgreSQL backend, and React Native/Expo frontend, and merged every change through senior engineer review.",
     ],
   },
   {
@@ -131,6 +132,7 @@ export const skills: { group: string; items: SkillItem[] }[] = [
       { name: "TypeScript", usedAt: "Header · MathGPT" },
       { name: "JavaScript", usedAt: "VocabLearn · ExpenseSplitter" },
       { name: "Java", usedAt: "NYU coursework" },
+      { name: "C", usedAt: "NYU coursework" },
       { name: "SQL", usedAt: "Header · MathGPT · Vardhman" },
       { name: "C#", usedAt: "Swordfight" },
     ],
@@ -145,6 +147,9 @@ export const skills: { group: string; items: SkillItem[] }[] = [
       { name: "PostgreSQL", usedAt: "Header" },
       { name: "MySQL", usedAt: "MathGPT · Vardhman" },
       { name: "MongoDB", usedAt: "Stock Analyzer" },
+      { name: "REST APIs", usedAt: "Header · VocabLearn" },
+      { name: "JWT/session auth", usedAt: "VocabLearn · Stock Analyzer" },
+      { name: "Schema migrations", usedAt: "Header" },
     ],
   },
   {
@@ -158,7 +163,7 @@ export const skills: { group: string; items: SkillItem[] }[] = [
   {
     group: "AI & Data Engineering",
     items: [
-      { name: "LLMs (OpenAI API, Ollama)", usedAt: "Header · MathGPT · RAG search" },
+      { name: "LLMs (OpenAI API, Gemini, Ollama)", usedAt: "Header · MathGPT · RAG search · VocabLearn" },
       { name: "RAG", usedAt: "RAG search platform" },
       { name: "LangChain", usedAt: "RAG search" },
       { name: "ChromaDB", usedAt: "RAG search" },

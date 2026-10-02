@@ -4,9 +4,9 @@ slug: "header"
 timeframe: "May 2026 – Aug 2026"
 role: "Software Engineer Intern"
 tags: ["Python", "FastAPI", "PostgreSQL", "React Native/Expo", "LLM Pipelines"]
-hook: "Production internship work at an AI briefing startup: full-stack briefing customization built on a dynamically assembled LLM prompt, user-authored briefing formats validated hard enough to feed an LLM safely, and 700+ automated tests, all shipped to production through code review."
+hook: "Production internship work at an AI briefing startup: full-stack briefing customization built on a dynamically assembled LLM prompt, user-authored briefing formats validated hard enough to feed an LLM safely, and 750+ automated tests, all shipped to production through code review."
 order: 1
-badge: "3 major features built · 700+ tests"
+badge: "3 major features built · 750+ tests"
 links:
   - label: "joinheader.com"
     href: "https://joinheader.com"
@@ -113,11 +113,14 @@ deploy, cross-platform test-infrastructure work, and closing a gap where one
 content-ingestion path bypassed an egress-validation control that a sibling
 path already had.
 
-One more feature track I built, larger than anything above: a multi-phase
-backend lifecycle system covering schema, state machine, write API, email
-delivery, and agent-facing parity, across five stacked PRs, the last of which
-shipped its web UI. All five are merged. The details aren't public, so it
-stays vague here.
+One more feature I built, larger than anything above, is Follow-ups. It lets
+users capture ideas from their briefings and follow them through to a recorded
+verdict: a 6-state lifecycle, 9 REST endpoints, 3 migrations, email reminders,
+and a React Native web UI, shipped across five stacked PRs and live in
+production. Users' AI coding agents can drive it too, through an API with
+row-locked, forward-only sync, an audit event per change, credential-derived
+verdict authority, per-key approval gating, and a compare-and-set fix for a
+delete race.
 
 *The repository is private client work, so there's no public link, but I'm
 happy to walk through any of this in as much detail as an interview allows.*
