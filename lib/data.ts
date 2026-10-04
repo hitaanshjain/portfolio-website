@@ -72,11 +72,11 @@ export const experience: ExperienceEntry[] = [
     timeframe: "May 2026 – Aug 2026",
     caseStudySlug: "header",
     bullets: [
-      "Built the Follow-ups feature, letting users capture ideas from their briefings and follow them through to a recorded verdict: a 6-state lifecycle, 9 REST endpoints, 3 migrations, email reminders, and a React Native web UI, live in production.",
-      "Shipped full-stack briefing customization to production (reorder, toggles, detail control, LLM TLDR) by refactoring a hardcoded prompt into blocks assembled from a JSONB layout model, and cut TLDR length by 45% with a word budget.",
+      "Built the Follow-ups feature, letting users capture ideas from their briefings and follow them through to a recorded verdict: a 6-state lifecycle, 9 REST endpoints, 3 migrations, email reminders, and a React Native web UI, shipped to production over three weeks.",
+      "Shipped full-stack briefing customization to production, letting users reorder, toggle, and set the detail level of each section, by refactoring a hardcoded prompt into blocks assembled from a JSONB layout model, and cut TLDR length by 45% with an A/B-tested word budget.",
       "Delivered the briefing formats and history view for Clear Tabs: a submit-time format picker with validated user-written sections, plus a React Native history screen on an authenticated, paginated FastAPI endpoint.",
       "Engineered an API that lets AI coding agents drive Follow-ups concurrently with their users: row-locked, forward-only sync with an audit event per change, credential-derived verdict authority, per-key approval gating, and a compare-and-set fix for a delete race.",
-      "Wrote 750+ automated tests across an LLM pipeline, FastAPI/PostgreSQL backend, and React Native/Expo frontend, and merged every change through senior engineer review.",
+      "Directed and reviewed Claude Code daily under hooks that blocked test rewrites and untested pushes, writing 750+ tests across an LLM pipeline, FastAPI/PostgreSQL backend, and React Native/Expo frontend, with every merge through senior review.",
     ],
   },
   {
@@ -97,7 +97,7 @@ export const experience: ExperienceEntry[] = [
     timeframe: "Dec 2024 – May 2025",
     compact: true,
     bullets: [
-      "Backend CRUD and a full MySQL → Microsoft Access migration for an inventory system serving 1,500+ retail locations, moved to Access to meet the client's offline, zero-infrastructure deployment constraint (394-column schema, 700+ queries rewritten across 43 files).",
+      "Migrated a Python inventory system serving 1,500+ retail locations from MySQL to Access to meet the client's offline, zero-infrastructure requirement: a 394-column schema across 19 tables, and 700+ queries rewritten across 43 files.",
     ],
     detail:
       "Refactored a 73-function MySQL database layer into a metadata-driven Access architecture, implementing a configuration-driven schema provisioner that dynamically issued CREATE TABLE and ALTER TABLE operations across 7 .accdb files.",
@@ -163,7 +163,7 @@ export const skills: { group: string; items: SkillItem[] }[] = [
   {
     group: "AI & Data Engineering",
     items: [
-      { name: "LLMs (OpenAI API, Gemini, Ollama)", usedAt: "Header · MathGPT · RAG search · VocabLearn" },
+      { name: "LLMs (OpenAI, Anthropic, Gemini, Ollama APIs)", usedAt: "Header · MathGPT · RAG search · VocabLearn" },
       { name: "RAG", usedAt: "RAG search platform" },
       { name: "LangChain", usedAt: "RAG search" },
       { name: "ChromaDB", usedAt: "RAG search" },
