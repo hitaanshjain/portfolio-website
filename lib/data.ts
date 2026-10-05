@@ -86,8 +86,10 @@ export const experience: ExperienceEntry[] = [
     timeframe: "May 2026 – Aug 2026",
     caseStudySlug: "case-study-pipeline",
     bullets: [
-      "Built a five-stage TypeScript/Next.js pipeline that turns a calculus textbook problem into three verified study artifacts: a compiled LaTeX case study, concept flashcards, and a step-by-step solution walkthrough, deployed for internal review with the content handed to MathGPT's engineering team for integration.",
+      "Designed and built a five-stage TypeScript/Next.js pipeline that turns a calculus textbook problem into three verified study artifacts: a compiled LaTeX case study, concept flashcards, and a step-by-step solution walkthrough, deployed for internal review with the content handed to MathGPT's engineering team for integration.",
       "Designed a generator/critic LLM architecture where the critic re-solves each problem before the generator's drafts even exist, and halts the pipeline on mismatch.",
+      "Imported 1,985 production templates from 3 textbooks into MySQL by writing HTML-to-LaTeX and AsciiMath-to-LaTeX converters (98% of answers converted), making linear algebra templates usable.",
+      "Generated 900+ concept and problem flashcards, batching 622 problem decks through the Claude Batch API at about $0.04 each, behind Zod and answer-checking gates that sent 15% back for retry before human review.",
       "Owned the corpus extraction system, stage validation contracts, and MySQL flashcard cache, covered by 1,000+ automated tests including negative controls, working on a three-intern Agile team with weekly project-lead syncs.",
     ],
   },

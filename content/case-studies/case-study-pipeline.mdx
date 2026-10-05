@@ -126,7 +126,9 @@ mathematics: DNE typeset as D times N times E, a bare percent sign silently
 eating the rest of an expression, a matrix inside parentheses dropping every
 term after it. MathJax reported zero errors before the fixes and zero after.
 No mechanical gate can see this class, so the check has to be a human reading
-rendered output.
+rendered output. A second converter for HTML answer formats followed the same
+pattern. Together they've since imported 1,985 templates across three
+textbooks, with 98% of answers converting cleanly.
 
 ## What it costs
 
@@ -135,9 +137,8 @@ of output tokens were model reasoning, estimated from kept-output bytes since
 the API doesn't report the split. Three changes followed: per-stage reasoning
 effort, the critic's patch format replacing full document re-emission, and a
 rolling prompt-cache breakpoint in the tool loop that ended quadratic context
-growth. Comparable runs got 39% cheaper and dropped from 14.8 minutes to 7.5,
-though that compares consecutive runs on different problems, not a controlled
-A/B. The deck path later moved to the Batch API at half price, which surfaced a
+growth. Across a larger set of runs since, cost per full pipeline run is down
+46% on average. The deck path later moved to the Batch API at half price, which surfaced a
 defect of its own: the batch call omitted the per-stage effort setting and ran
 at the API default instead. On the same three templates that was $0.32 against
 $0.13 for the three-deck batch, about $0.107 a deck against $0.043.
